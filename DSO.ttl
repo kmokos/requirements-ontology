@@ -1,0 +1,311 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/DSO
+# imports: http://delab.csd.auth.gr/ontologies/2018/SAO
+
+@prefix DSO: <http://delab.csd.auth.gr/ontologies/2018/DCO#> .
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+DSO:Actuator
+  rdf:type owl:Class ;
+  rdfs:comment """An actuator is mechanical or electro-mechanical device that is responsible for moving or controlling a mechanism or system
+
+The actuators are used to impart torques and forces to the satellite to control, respectively, the satellite’s attitude and its position.
+
+Three common types of actuators are:
+- Thruster (THU)
+- Reaction Wheel (RW)
+- Magnetorquer (MGT)""" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:AttitudeAndOrbitControlSystem
+  rdf:type owl:Class ;
+  rdfs:comment """The Attitude and Orbit Control System (AOCS) subsystem is one of the subsystems of a satellite.
+
+The AOCS receives telecommands from the central computer and it forwards telemetry data to it over the system bus. It periodically acquires measurements (on the satellite attitude and orbital position) from a set of sensors and uses them to compute control signals that are sent to a set of actuators. Other commands, for special contingencies (such as for instance forcing the AOCS into safe mode), may be routed over dedicated command lines. 
+
+The following main functions are typically carried out by an AOCS:
+- Attitude Control Function
+- Orbit Control Function
+- Telecommand Processing
+- Telemetry Processing
+- Failure Detection and Isolation
+
+More at:
+https://www.pnp-software.com/AocsFramework/AocsBackground.html
+- Failure Recovery
+- Reconfigurations
+- Manoeuvre Execution""" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:CourseSunSensor
+  rdf:type owl:Class ;
+  rdfs:comment "The Coarse Sun Sensor (CSS) delivers coarse information about the position of the sun relative to the spacecraft. This information is used for coarse maneuvering of the spacecraft and to inform the spacecraft about the position of the sun when it is in a safe mode of operation." ;
+  rdfs:subClassOf DSO:SunSensor ;
+  owl:disjointWith DSO:FineSunSensor ;
+  owl:disjointWith DSO:SunPresenceSensor ;
+.
+DSO:EarthSensor
+  rdf:type owl:Class ;
+  rdfs:comment "Earth sensor is a device that senses the direction to Earth. It is usually an infrared camera; nowadays the main method to detect attitude is the star tracker, but Earth sensors are still integrated in satellites for their low cost and reliability." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:GPS ;
+  owl:disjointWith DSO:Gyro ;
+  owl:disjointWith DSO:Magnetometer ;
+  owl:disjointWith DSO:StarTracker ;
+  owl:disjointWith DSO:SunSensor ;
+.
+DSO:ElectricalPowerSystem
+  rdf:type owl:Class ;
+  rdfs:comment "Refers to the statellite's system which is responsible for providing electrical power to all systems. The type of the mission (e.g., GEO, LEO), influences the time that the satellite is facing the sun, and thus the way the power subsystem is designed." ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:FineSunSensor
+  rdf:type owl:Class ;
+  rdfs:comment "Fine Sun Sensor measures the direction of the sun line in the sensor’s reference frame. " ;
+  rdfs:subClassOf DSO:SunSensor ;
+  owl:disjointWith DSO:CourseSunSensor ;
+  owl:disjointWith DSO:SunPresenceSensor ;
+.
+DSO:GPS
+  rdf:type owl:Class ;
+  rdfs:comment "An electronic system that uses a global system of navigational satellites developed to provide precise positional and velocity data and global time synchronization for air, sea, and land travel." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:EarthSensor ;
+  owl:disjointWith DSO:Gyro ;
+  owl:disjointWith DSO:Magnetometer ;
+  owl:disjointWith DSO:StarTracker ;
+  owl:disjointWith DSO:SunSensor ;
+.
+DSO:Gyro
+  rdf:type owl:Class ;
+  rdfs:comment "A gyroscope is a spinning wheel or disc in which the axis of rotation is free to assume any orientation. When rotating, the orientation of this axis is unafected by tilting or rotation of the mounting, according to the conservation of angular momentum. Because of this, gyroscopes are useful for measuring or maintaining orientation." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:EarthSensor ;
+  owl:disjointWith DSO:GPS ;
+  owl:disjointWith DSO:Magnetometer ;
+  owl:disjointWith DSO:StarTracker ;
+  owl:disjointWith DSO:SunSensor ;
+.
+DSO:Magnetometer
+  rdf:type owl:Class ;
+  rdfs:comment "Spacecraft magnetometers are magnetometers used aboard spacecraft and satellites, mostly for scientific investigations, plus attitude sensing. Magnetometers are among the most widely used scientific instruments in exploratory and observation satellites." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:EarthSensor ;
+  owl:disjointWith DSO:GPS ;
+  owl:disjointWith DSO:Gyro ;
+  owl:disjointWith DSO:StarTracker ;
+  owl:disjointWith DSO:SunSensor ;
+.
+DSO:Magnetorquer
+  rdf:type owl:Class ;
+  rdfs:comment "Magnetorquer interacts with the earth’s magnetic field to generate a control torque." ;
+  rdfs:subClassOf DSO:Actuator ;
+  owl:disjointWith DSO:ReactionWheel ;
+  owl:disjointWith DSO:Thruster ;
+.
+DSO:MassMemoryUnit
+  rdf:type owl:Class ;
+  rdfs:comment "The subsystem responsible for the management of the on-board memory." ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:PayloadSystem
+  rdf:type owl:Class ;
+  rdfs:comment "Payload system" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:ReactionWheel
+  rdf:type owl:Class ;
+  rdfs:comment "A reaction wheel is a rotating wheel that can be accelerated or braked. The action of accelerating or braking causes a torque to be applied to the satellite by reaction." ;
+  rdfs:subClassOf DSO:Actuator ;
+  owl:disjointWith DSO:Magnetorquer ;
+  owl:disjointWith DSO:Thruster ;
+.
+DSO:Sensor
+  rdf:type owl:Class ;
+  rdfs:comment """The sensors are used by the AOCS to collect measurements about the current attitude and position of the satellite.
+
+Attitude sensors can be of two types. Passive sensors have no internal processors. Active sensors have an internal processor and the complexity of their software can match that of the AOCS computer itself.
+
+The most common types of passive sensors are:
+- Fine Sun Sensor(FSS): measures the direction of the sun line in the sensor’s reference frame. Typically, FSS’s have a nearly-hemispherical field of view and very high accuracy (order of arcsecond).
+- Coarse Sun Sensor(CSS): conceptually similar to the FSS but constructed in a different way. The different technology results in a lower accuracy (order of 0.1 deg). The field of view is nearly hemispherical with accuracy being highest close to the boresight.
+- Sun Presence Sensor (SPS): this sensor has a binary output. Possible outputs are: \"\"sun present\"\" and \"\"sun not present\"\". The \"\"sun present\"\" output is generated when the sun direction is within the sensor’s field of view. Typically the field of view is square with a side of 25 or 30 degrees. The \"\"sun not present\"\" output is generated when the sun is outside the field of view. SPS’s are often used as attitude anomaly detectors .
+- Earth Sensor (ES): measures the earth direction in the sensor’s field of view. Their accuracy is rather low (order of 0.01 to 0.1 deg).
+- Magnetometers (MGM): measure the direction of the earth’s magnetic field in the sensor’s field of view. Their accuracy is low and varies widely from system to system.
+- Gyroscope (GYR): measure the inertial angular rate of the satellite. Gyroscopes can have one or two sensitive axes. They give the projection of the satellite angular rate on the sensitive axes.Gyroscopes are often combined in packages to give measurements along up to six axes.
+
+The most common types of active sensors are:
+- Star Sensor (STR): measures the positions of several stars in its field of view. It also performs pattern recognition on the stars it sees to identify the portion of sky at which it is looking.
+- GPS Receiver: primarily used for position determination, it can also provide an inertial measurement of the host satellite attitude.""" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:Software
+  rdf:type owl:Class ;
+  rdfs:comment """Abreviation: SW
+
+The AOCS software is generally built as one single load module that is burned into PROM on the AOCS computer or uplinked by telecommand after launch. 
+
+The AOCS software is typically organized as a collection of tasks. A cyclic scheduling policy without pre-emption is used. The cycle period is the same as the AOCS control cycle (often 500 ms but also as much as 1 sec or as little as 50 ms). Ada tasking is generally not used because of its overheads.""" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:Spacecraft
+  rdf:type owl:Class ;
+  rdfs:comment """Abreviation: S/C
+Similar: Satellite""" ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "0"^^xsd:nonNegativeInteger ;
+      owl:onProperty <http://delab.csd.auth.gr/ontologies/2018/SAO#isContainedIn> ;
+    ] ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:StarTracker
+  rdf:type owl:Class ;
+  rdfs:comment "A star tracker is an optical device that measures the position(s) of star(s) using photocell(s) or a camera." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:EarthSensor ;
+  owl:disjointWith DSO:GPS ;
+  owl:disjointWith DSO:Gyro ;
+  owl:disjointWith DSO:Magnetometer ;
+  owl:disjointWith DSO:SunSensor ;
+.
+DSO:SunPresenceSensor
+  rdf:type owl:Class ;
+  rdfs:comment "Sun presence sensors provide a binary output, indicating when the sun is within the sensor's field of view. " ;
+  rdfs:subClassOf DSO:SunSensor ;
+  owl:disjointWith DSO:CourseSunSensor ;
+  owl:disjointWith DSO:FineSunSensor ;
+.
+DSO:SunSensor
+  rdf:type owl:Class ;
+  rdfs:comment "A sun sensor is a device that senses the direction to the Sun to measure the position of the sun or other light sources with respect to the sensor position." ;
+  rdfs:subClassOf DSO:Sensor ;
+  owl:disjointWith DSO:EarthSensor ;
+  owl:disjointWith DSO:GPS ;
+  owl:disjointWith DSO:Gyro ;
+  owl:disjointWith DSO:Magnetometer ;
+  owl:disjointWith DSO:StarTracker ;
+.
+DSO:TelecommunicationSystem
+  rdf:type owl:Class ;
+  rdfs:comment "The subsystem which is responsible for the communication of the satellite to and from the ground." ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom DSO:Spacecraft ;
+      owl:onProperty <http://delab.csd.auth.gr/ontologies/2018/SAO#isContainedIn> ;
+    ] ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:ThermalSystem ;
+.
+DSO:ThermalSystem
+  rdf:type owl:Class ;
+  rdfs:comment "It is responsible to keep all the spacecraft parts within acceptable temperature ranges during all mission phases." ;
+  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
+  owl:disjointWith DSO:Actuator ;
+  owl:disjointWith DSO:AttitudeAndOrbitControlSystem ;
+  owl:disjointWith DSO:ElectricalPowerSystem ;
+  owl:disjointWith DSO:MassMemoryUnit ;
+  owl:disjointWith DSO:PayloadSystem ;
+  owl:disjointWith DSO:Sensor ;
+  owl:disjointWith DSO:Software ;
+  owl:disjointWith DSO:Spacecraft ;
+  owl:disjointWith DSO:TelecommunicationSystem ;
+.
+DSO:Thruster
+  rdf:type owl:Class ;
+  rdfs:comment "A thruster emits gas jets that impart a force to the satellite. If the direction of the gas jet does not go through the satellite centre of gravity, then a torque on the satellite results. By combining jets from suitably located thrusters it is possible to apply either pure forces or pure torques to the satellite." ;
+  rdfs:subClassOf DSO:Actuator ;
+  owl:disjointWith DSO:Magnetorquer ;
+  owl:disjointWith DSO:ReactionWheel ;
+.
+<http://delab.csd.auth.gr/ontologies/2018/DSO>
+  rdf:type owl:Ontology ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/SAO> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.

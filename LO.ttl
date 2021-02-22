@@ -1,0 +1,339 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/LO
+# imports: http://spinrdf.org/spl
+# prefix: LO
+
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/LO#> .
+@prefix LO: <http://delab.csd.auth.gr/ontologies/2018/LO#> .
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://delab.csd.auth.gr/ontologies/2018/LO>
+  rdf:type owl:Ontology ;
+  owl:imports <http://spinrdf.org/spl> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+LO:Adjective
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Adverb ;
+  owl:disjointWith LO:Noun ;
+  owl:disjointWith LO:Verb ;
+.
+LO:Adverb
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Adjective ;
+  owl:disjointWith LO:Noun ;
+  owl:disjointWith LO:Verb ;
+.
+LO:BeComposedFrom
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Contain
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Emit
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:HaveState
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:HaveSubState
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Ingest
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Interact
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Invoke
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:LexicalConcept
+  rdf:type owl:Class ;
+  rdfs:comment "A LexicalConcept represents concepts that can be lexicalized by an adjective, adverb, noun or verb." ;
+  rdfs:subClassOf owl:Thing ;
+.
+LO:Noun
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Adjective ;
+  owl:disjointWith LO:Adverb ;
+  owl:disjointWith LO:Verb ;
+.
+LO:Perform
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Present
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Receive
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Send
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Set
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:TakeValuesFrom ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:TakeValuesFrom
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:Transfer ;
+.
+LO:Transfer
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Verb ;
+  owl:disjointWith LO:BeComposedFrom ;
+  owl:disjointWith LO:Contain ;
+  owl:disjointWith LO:Emit ;
+  owl:disjointWith LO:HaveState ;
+  owl:disjointWith LO:HaveSubState ;
+  owl:disjointWith LO:Ingest ;
+  owl:disjointWith LO:Interact ;
+  owl:disjointWith LO:Invoke ;
+  owl:disjointWith LO:Perform ;
+  owl:disjointWith LO:Present ;
+  owl:disjointWith LO:Receive ;
+  owl:disjointWith LO:Send ;
+  owl:disjointWith LO:Set ;
+  owl:disjointWith LO:TakeValuesFrom ;
+.
+LO:Verb
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Adjective ;
+  owl:disjointWith LO:Adverb ;
+  owl:disjointWith LO:Noun ;
+.
+LO:antonymOf
+  rdf:type owl:SymmetricProperty ;
+  rdfs:comment "A concept opposite in meaning to another" ;
+  rdfs:domain LO:LexicalConcept ;
+  rdfs:range LO:LexicalConcept ;
+.
+LO:synonymOf
+  rdf:type owl:TransitiveProperty ;
+  rdfs:comment "A concept that means exactly or nearly the same as another" ;
+  rdfs:domain LO:LexicalConcept ;
+  rdfs:range LO:LexicalConcept ;
+.

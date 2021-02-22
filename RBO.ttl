@@ -1,0 +1,2496 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/RBO
+# imports: http://delab.csd.auth.gr/ontologies/2018/LO
+# imports: http://spinrdf.org/spin
+# prefix: RBO
+
+@prefix LO: <http://delab.csd.auth.gr/ontologies/2018/LO#> .
+@prefix RBO: <http://delab.csd.auth.gr/ontologies/2018/RBO#> .
+@prefix muo: <http://purl.oclc.org/net/muo/muo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+LO:Verb
+  rdfs:subClassOf RBO:Action ;
+.
+<http://delab.csd.auth.gr/ontologies/2018/RBO>
+  rdf:type owl:Ontology ;
+  spin:imports <http://topbraid.org/spin/rdfsplus> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/LO> ;
+  owl:imports <http://spinrdf.org/spin> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+RBO:Action
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  owl:disjointWith RBO:Entity ;
+  owl:disjointWith RBO:LogicalExpression ;
+  owl:disjointWith RBO:Quantifier ;
+  owl:disjointWith RBO:Quantity ;
+  owl:disjointWith RBO:Suffix ;
+.
+RBO:Ask_1
+  rdf:type sp:Ask ;
+.
+RBO:Attribute
+  rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "e2" ;
+              ] ;
+            sp:predicate RBO:contradictsWith ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "val1" ;
+              ] ;
+            sp:predicate [
+                sp:varName "pr" ;
+              ] ;
+            sp:subject spin:_this ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:eq ;
+                sp:arg1 [
+                    rdf:type sp:strbefore ;
+                    sp:arg1 [
+                        rdf:type sp:str ;
+                        sp:arg1 [
+                            sp:varName "pr" ;
+                          ] ;
+                      ] ;
+                    sp:arg2 "#" ;
+                  ] ;
+                sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:ne ;
+                sp:arg1 [
+                    sp:varName "pr" ;
+                  ] ;
+                sp:arg2 RBO:isRelatedToAttribute ;
+              ] ;
+          ]
+          [
+            sp:object RBO:Attribute ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "e2" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:ne ;
+                sp:arg1 spin:_this ;
+                sp:arg2 [
+                    sp:varName "e2" ;
+                  ] ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "val2" ;
+              ] ;
+            sp:predicate [
+                sp:varName "pr" ;
+              ] ;
+            sp:subject [
+                sp:varName "e2" ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "val2" ;
+              ] ;
+            sp:predicate RBO:contradictsWith ;
+            sp:subject [
+                sp:varName "val1" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:NotExists ;
+            sp:elements (
+                [
+                  sp:object [
+                      sp:varName "val" ;
+                    ] ;
+                  sp:predicate [
+                      sp:varName "prop" ;
+                    ] ;
+                  sp:subject spin:_this ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:and ;
+                      sp:arg1 [
+                          rdf:type sp:ne ;
+                          sp:arg1 [
+                              sp:varName "prop" ;
+                            ] ;
+                          sp:arg2 [
+                              sp:varName "pr" ;
+                            ] ;
+                        ] ;
+                      sp:arg2 [
+                          rdf:type sp:ne ;
+                          sp:arg1 [
+                              sp:varName "prop" ;
+                            ] ;
+                          sp:arg2 RBO:isRelatedToAttribute ;
+                        ] ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:eq ;
+                      sp:arg1 [
+                          rdf:type sp:strbefore ;
+                          sp:arg1 [
+                              rdf:type sp:str ;
+                              sp:arg1 [
+                                  sp:varName "prop" ;
+                                ] ;
+                            ] ;
+                          sp:arg2 "#" ;
+                        ] ;
+                      sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:NotExists ;
+                  sp:elements (
+                      [
+                        rdf:type sp:Union ;
+                        sp:elements (
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject [
+                                    sp:varName "e2" ;
+                                  ] ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val3" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject [
+                                    sp:varName "e2" ;
+                                  ] ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:isSimilarTo ;
+                                sp:subject [
+                                    sp:varName "val3" ;
+                                  ] ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val3" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject [
+                                    sp:varName "e2" ;
+                                  ] ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:contradictsWith ;
+                                sp:subject [
+                                    sp:varName "val3" ;
+                                  ] ;
+                              ]
+                            )
+                          ) ;
+                      ]
+                    ) ;
+                ]
+              ) ;
+          ]
+          [
+            rdf:type sp:NotExists ;
+            sp:elements (
+                [
+                  sp:object [
+                      sp:varName "val" ;
+                    ] ;
+                  sp:predicate [
+                      sp:varName "prop" ;
+                    ] ;
+                  sp:subject [
+                      sp:varName "e2" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:and ;
+                      sp:arg1 [
+                          rdf:type sp:ne ;
+                          sp:arg1 [
+                              sp:varName "prop" ;
+                            ] ;
+                          sp:arg2 [
+                              sp:varName "pr" ;
+                            ] ;
+                        ] ;
+                      sp:arg2 [
+                          rdf:type sp:ne ;
+                          sp:arg1 [
+                              sp:varName "prop" ;
+                            ] ;
+                          sp:arg2 RBO:isRelatedToAttribute ;
+                        ] ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:eq ;
+                      sp:arg1 [
+                          rdf:type sp:strbefore ;
+                          sp:arg1 [
+                              rdf:type sp:str ;
+                              sp:arg1 [
+                                  sp:varName "prop" ;
+                                ] ;
+                            ] ;
+                          sp:arg2 "#" ;
+                        ] ;
+                      sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:NotExists ;
+                  sp:elements (
+                      [
+                        rdf:type sp:Union ;
+                        sp:elements (
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject spin:_this ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val3" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject spin:_this ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:isSimilarTo ;
+                                sp:subject [
+                                    sp:varName "val3" ;
+                                  ] ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val3" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject spin:_this ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:contradictsWith ;
+                                sp:subject [
+                                    sp:varName "val3" ;
+                                  ] ;
+                              ]
+                            )
+                          ) ;
+                      ]
+                    ) ;
+                ]
+              ) ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object [
+                sp:varName "e2" ;
+              ] ;
+            sp:predicate RBO:isSimilarTo ;
+            sp:subject spin:_this ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "val1" ;
+              ] ;
+            sp:predicate [
+                sp:varName "pr1" ;
+              ] ;
+            sp:subject spin:_this ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:eq ;
+                sp:arg1 [
+                    rdf:type sp:strbefore ;
+                    sp:arg1 [
+                        rdf:type sp:str ;
+                        sp:arg1 [
+                            sp:varName "pr1" ;
+                          ] ;
+                      ] ;
+                    sp:arg2 "#" ;
+                  ] ;
+                sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+              ] ;
+          ]
+          [
+            sp:object RBO:Attribute ;
+            sp:predicate rdf:type ;
+            sp:subject [
+                sp:varName "e2" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:ne ;
+                sp:arg1 spin:_this ;
+                sp:arg2 [
+                    sp:varName "e2" ;
+                  ] ;
+              ] ;
+          ]
+          [
+            sp:object [
+                sp:varName "val2" ;
+              ] ;
+            sp:predicate [
+                sp:varName "pr2" ;
+              ] ;
+            sp:subject [
+                sp:varName "e2" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:eq ;
+                sp:arg1 [
+                    rdf:type sp:strbefore ;
+                    sp:arg1 [
+                        rdf:type sp:str ;
+                        sp:arg1 [
+                            sp:varName "pr2" ;
+                          ] ;
+                      ] ;
+                    sp:arg2 "#" ;
+                  ] ;
+                sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+              ] ;
+          ]
+          [
+            rdf:type sp:NotExists ;
+            sp:elements (
+                [
+                  sp:object [
+                      sp:varName "val" ;
+                    ] ;
+                  sp:predicate [
+                      sp:varName "prop" ;
+                    ] ;
+                  sp:subject spin:_this ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:eq ;
+                      sp:arg1 [
+                          rdf:type sp:strbefore ;
+                          sp:arg1 [
+                              rdf:type sp:str ;
+                              sp:arg1 [
+                                  sp:varName "prop" ;
+                                ] ;
+                            ] ;
+                          sp:arg2 "#" ;
+                        ] ;
+                      sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:NotExists ;
+                  sp:elements (
+                      [
+                        rdf:type sp:Union ;
+                        sp:elements (
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject [
+                                    sp:varName "e2" ;
+                                  ] ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val2" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject [
+                                    sp:varName "e2" ;
+                                  ] ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:isSimilarTo ;
+                                sp:subject [
+                                    sp:varName "val2" ;
+                                  ] ;
+                              ]
+                            )
+                          ) ;
+                      ]
+                    ) ;
+                ]
+              ) ;
+          ]
+          [
+            rdf:type sp:NotExists ;
+            sp:elements (
+                [
+                  sp:object [
+                      sp:varName "val" ;
+                    ] ;
+                  sp:predicate [
+                      sp:varName "prop" ;
+                    ] ;
+                  sp:subject [
+                      sp:varName "e2" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:Filter ;
+                  sp:expression [
+                      rdf:type sp:eq ;
+                      sp:arg1 [
+                          rdf:type sp:strbefore ;
+                          sp:arg1 [
+                              rdf:type sp:str ;
+                              sp:arg1 [
+                                  sp:varName "prop" ;
+                                ] ;
+                            ] ;
+                          sp:arg2 "#" ;
+                        ] ;
+                      sp:arg2 "http://delab.csd.auth.gr/ontologies/2018/RBO" ;
+                    ] ;
+                ]
+                [
+                  rdf:type sp:NotExists ;
+                  sp:elements (
+                      [
+                        rdf:type sp:Union ;
+                        sp:elements (
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject spin:_this ;
+                              ]
+                            )
+                            (
+                              [
+                                sp:object [
+                                    sp:varName "val2" ;
+                                  ] ;
+                                sp:predicate [
+                                    sp:varName "prop" ;
+                                  ] ;
+                                sp:subject spin:_this ;
+                              ]
+                              [
+                                sp:object [
+                                    sp:varName "val" ;
+                                  ] ;
+                                sp:predicate RBO:isSimilarTo ;
+                                sp:subject [
+                                    sp:varName "val2" ;
+                                  ] ;
+                              ]
+                            )
+                          ) ;
+                      ]
+                    ) ;
+                ]
+              ) ;
+          ]
+        ) ;
+    ] ;
+  rdfs:subClassOf owl:Thing ;
+.
+RBO:ComplexEntity
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Entity ;
+.
+RBO:ComplexLogicalExpression
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:LogicalExpression ;
+.
+RBO:ComplexPrefix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Prefix ;
+.
+RBO:ComplexSuffix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Suffix ;
+.
+RBO:Connection
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:EmitOccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> emits <item>" ;
+  rdfs:subClassOf RBO:OccuringFunctionality ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Emit ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:Entity
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  owl:disjointWith RBO:Action ;
+  owl:disjointWith RBO:LogicalExpression ;
+  owl:disjointWith RBO:Quantifier ;
+  owl:disjointWith RBO:Quantity ;
+  owl:disjointWith RBO:Suffix ;
+.
+RBO:Flow
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:Function
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:IngestOccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> ingests <item>" ;
+  rdfs:subClassOf RBO:OccuringFunctionality ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Ingest ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:Interface
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:Item
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:ItemStateValueContraint
+  rdf:type owl:Class ;
+  rdfs:comment "<item> is <stateValue>" ;
+  rdfs:subClassOf RBO:StateValueContraint ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:Item
+              RBO:StateValue
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateValue ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "2"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:LogicalExpression
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  owl:disjointWith RBO:Action ;
+  owl:disjointWith RBO:Entity ;
+  owl:disjointWith RBO:Quantifier ;
+  owl:disjointWith RBO:Quantity ;
+  owl:disjointWith RBO:Suffix ;
+.
+RBO:M1
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] set <item>[[quantifier] number unit] [to <stateValue>]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Set ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:StateValue
+              RBO:Quantity
+              <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement>
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToQuantity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateValue ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoUOM ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "6"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M10
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<interface> shall [not] transfer <flow>/<item>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Transfer ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Interface
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Interface
+              RBO:Item
+              RBO:Flow
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToTraversingConcept ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M11
+  rdf:type owl:Class ;
+  rdfs:comment "<system> shall [not] interact with <system> [using <connection>] [as denoned in <text>]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Interact ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Connection
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSystem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToConnection ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "4"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M12
+  rdf:type owl:Class ;
+  rdfs:comment "<system> shall [not] have state <state> [with values <stateSet>]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:HaveState ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:State
+              RBO:StateSet
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToState ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateSet ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "4"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M13
+  rdf:type owl:Class ;
+  rdfs:comment "<system> <state> <stateValue> shall [not] have substate <state> [with values <stateSet>]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:HaveSubState ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:State
+              RBO:StateValue
+              RBO:StateSet
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToState ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubjectState ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubjectStateValue ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateSet ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "6"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "5"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M14
+  rdf:type owl:Class ;
+  rdfs:comment "<system> <item> shall [not] take values from <stateSet>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:TakeValuesFrom ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Item
+              RBO:StateSet
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateSet ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubjectItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "4"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M15
+  rdf:type owl:Class ;
+  rdfs:comment "<system> <item> shall [not] be composed from <item>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:BeComposedFrom ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Item
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubjectItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M16
+  rdf:type owl:Class ;
+  rdfs:comment "<system> shall [not] contain <system>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Contain ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSystem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M2
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] set <state> to <stateValue>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Set ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:State
+              RBO:StateValue
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToState ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateValue ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "4"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M3
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] send <item> [[quantifier] number unit]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Send ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Quantity
+              <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement>
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToQuantity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoUOM ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "5"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M4
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] receive <item> [[quantifier] number unit]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Receive ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Quantity
+              <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement>
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToQuantity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoUOM ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "5"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M5
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] ingest <flow>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Ingest ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Flow
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoFlow ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M6
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> shall [not] emit <flow>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Emit ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Flow
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoFlow ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M7
+  rdf:type owl:Class ;
+  rdfs:comment "<system> shall [not] perform <function>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Perform ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToFunction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M8
+  rdf:type owl:Class ;
+  rdfs:comment "<function> shall [not] invoke <function>" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Invoke ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:Function ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:Function
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToFunction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:M9
+  rdf:type owl:Class ;
+  rdfs:comment "<system> shall [not] present <interface>[to <system>]" ;
+  rdfs:subClassOf RBO:Main ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Present ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Interface
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToInterface ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSystem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "4"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:Main
+  rdf:type owl:Class ;
+  rdfs:comment "This class represents the main part of a boilerplate for describing requirements." ;
+  rdfs:subClassOf RBO:ReqDescriptor ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSubject ;
+    ] ;
+.
+RBO:OccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleLogicalExpression ;
+.
+RBO:P1
+  rdf:type owl:Class ;
+  rdfs:comment "If/Unless <logical expression>" ;
+  rdfs:subClassOf RBO:SimplePrefix ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:LogicalExpression ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToLogicalExpression ;
+    ] ;
+.
+RBO:P2
+  rdf:type owl:Class ;
+  rdfs:comment "As soon as <occuring functionality>" ;
+  rdfs:subClassOf RBO:SimplePrefix ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:OccuringFunctionality ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToOccuringFunctionality ;
+    ] ;
+.
+RBO:P3
+  rdf:type owl:Class ;
+  rdfs:comment "As long as <time period>" ;
+  rdfs:subClassOf RBO:SimplePrefix ;
+.
+RBO:PerformOccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:comment "<system> performs <function>" ;
+  rdfs:subClassOf RBO:OccuringFunctionality ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Perform ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:System ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:Prefix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:ReqDescriptor ;
+.
+RBO:Quantifier
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  owl:disjointWith RBO:Action ;
+  owl:disjointWith RBO:Entity ;
+  owl:disjointWith RBO:LogicalExpression ;
+  owl:disjointWith RBO:Quantity ;
+  owl:disjointWith RBO:Suffix ;
+.
+RBO:Quantity
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  owl:disjointWith RBO:Action ;
+  owl:disjointWith RBO:Entity ;
+  owl:disjointWith RBO:LogicalExpression ;
+  owl:disjointWith RBO:Quantifier ;
+  owl:disjointWith RBO:Suffix ;
+.
+RBO:ReceiveOccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> receives <item>" ;
+  rdfs:subClassOf RBO:OccuringFunctionality ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Receive ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:ReqDescriptor
+  rdf:type owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+.
+RBO:S1
+  rdf:type owl:Class ;
+  rdfs:comment "[quantifier] number unit [per time-unit]" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:Quantity
+              <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement>
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToQuantity ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoUOM ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "2"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:minCardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:S2
+  rdf:type owl:Class ;
+  rdfs:comment "after/before <flow>" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom RBO:Flow ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedtoFlow ;
+    ] ;
+.
+RBO:S3
+  rdf:type owl:Class ;
+  rdfs:comment "[quantifier] [every/for a period of/within/for at least] number time-unit [from <flow>]" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:Quantifier
+              RBO:Flow
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToQuantifier ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:maxCardinality "2"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:S4
+  rdf:type owl:Class ;
+  rdfs:comment "at the beginning/at the end" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+.
+RBO:S5
+  rdf:type owl:Class ;
+  rdfs:comment "at even intervals" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+.
+RBO:S6
+  rdf:type owl:Class ;
+  rdfs:comment "sequentially" ;
+  rdfs:subClassOf RBO:SimpleSuffix ;
+.
+RBO:SendOccuringFunctionality
+  rdf:type owl:Class ;
+  rdfs:comment "<system>/<function> sends <item>" ;
+  rdfs:subClassOf RBO:OccuringFunctionality ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom LO:Send ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:Function
+              RBO:Item
+              RBO:Action
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAction ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToItem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStimulus ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:SimpleEntity
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Entity ;
+.
+RBO:SimpleLogicalExpression
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:LogicalExpression ;
+.
+RBO:SimplePrefix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Prefix ;
+.
+RBO:SimpleSuffix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Suffix ;
+.
+RBO:State
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:StateValue ;
+  owl:disjointWith RBO:System ;
+.
+RBO:StateSet
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:ComplexEntity ;
+.
+RBO:StateValue
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:System ;
+.
+RBO:StateValueContraint
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleLogicalExpression ;
+.
+RBO:Suffix
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:Attribute ;
+  rdfs:subClassOf RBO:ReqDescriptor ;
+  owl:disjointWith RBO:Action ;
+  owl:disjointWith RBO:Entity ;
+  owl:disjointWith RBO:LogicalExpression ;
+  owl:disjointWith RBO:Quantifier ;
+  owl:disjointWith RBO:Quantity ;
+.
+RBO:System
+  rdf:type owl:Class ;
+  rdfs:subClassOf RBO:SimpleEntity ;
+  owl:disjointWith RBO:Connection ;
+  owl:disjointWith RBO:Flow ;
+  owl:disjointWith RBO:Function ;
+  owl:disjointWith RBO:Interface ;
+  owl:disjointWith RBO:Item ;
+  owl:disjointWith RBO:State ;
+  owl:disjointWith RBO:StateValue ;
+.
+RBO:SystemStateValueContraint
+  rdf:type owl:Class ;
+  rdfs:comment "<system> <state> is <stateValue>" ;
+  rdfs:subClassOf RBO:StateValueContraint ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom [
+          rdf:type owl:Class ;
+          owl:unionOf (
+              RBO:System
+              RBO:State
+              RBO:StateValue
+            ) ;
+        ] ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToState ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToStateValue ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "1"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToSystem ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "3"^^xsd:nonNegativeInteger ;
+      owl:onProperty RBO:isRelatedToAttribute ;
+    ] ;
+.
+RBO:contradictsWith
+  rdf:type owl:SymmetricProperty ;
+  rdfs:domain RBO:Attribute ;
+.
+RBO:hasDescription
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain RBO:SimpleEntity ;
+  rdfs:label "has description" ;
+  rdfs:range xsd:string ;
+.
+RBO:hasNegation
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain RBO:Main ;
+  rdfs:label "has negation" ;
+  rdfs:range xsd:boolean ;
+.
+RBO:hasOperator
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:ComplexPrefix
+          RBO:ComplexSuffix
+          RBO:ComplexEntity
+          RBO:ComplexLogicalExpression
+          RBO:Action
+        ) ;
+    ] ;
+  rdfs:label "has operator" ;
+  rdfs:range xsd:string ;
+.
+RBO:hasPreposition
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:State
+          RBO:Entity
+          RBO:Action
+          RBO:Item
+        ) ;
+    ] ;
+  rdfs:label "is related to preposition" ;
+  rdfs:range xsd:string ;
+.
+RBO:hasQuantifier
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain RBO:Quantity ;
+  rdfs:label "is related to quantifier" ;
+  rdfs:range xsd:string ;
+.
+RBO:hasQuantity
+  rdf:type owl:DatatypeProperty ;
+  rdfs:label "has quantity" ;
+  rdfs:range xsd:integer ;
+.
+RBO:hasSimpleEntity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:ComplexEntity ;
+  rdfs:range RBO:SimpleEntity ;
+.
+RBO:hasVerb
+  rdf:type owl:DatatypeProperty ;
+  rdfs:domain RBO:Action ;
+  rdfs:label "is related to verb" ;
+  rdfs:range LO:Verb ;
+.
+RBO:isRelatedToAction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Main
+          RBO:OccuringFunctionality
+        ) ;
+    ] ;
+  rdfs:range RBO:Action ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToAttribute
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:ReqDescriptor ;
+  rdfs:range RBO:Attribute ;
+.
+RBO:isRelatedToConnection
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:M11 ;
+  rdfs:range RBO:Connection ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToFunction
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M7
+          RBO:M8
+          RBO:PerformOccuringFunctionality
+        ) ;
+    ] ;
+  rdfs:range RBO:Function ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToInterface
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:M9 ;
+  rdfs:range RBO:Interface ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToItem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M1
+          RBO:M3
+          RBO:M4
+          RBO:M15
+          RBO:SendOccuringFunctionality
+          RBO:ReceiveOccuringFunctionality
+          RBO:ItemStateValueContraint
+        ) ;
+    ] ;
+  rdfs:range RBO:Item ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToLogicalExpression
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:P1
+          RBO:ComplexLogicalExpression
+        ) ;
+    ] ;
+  rdfs:range RBO:LogicalExpression ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToNumbers
+  rdf:type owl:ObjectProperty ;
+  rdfs:range rdf:List ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToOccuringFunctionality
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:P2 ;
+  rdfs:range RBO:OccuringFunctionality ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToQuantifier
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Quantity
+          RBO:M1
+          RBO:M3
+          RBO:M4
+          RBO:S1
+          RBO:S3
+        ) ;
+    ] ;
+  rdfs:range RBO:Quantifier ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToQuantity
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:SimpleEntity
+          RBO:M1
+          RBO:M3
+          RBO:M4
+          RBO:S1
+          RBO:S3
+        ) ;
+    ] ;
+  rdfs:range RBO:Quantity ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToState
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:SystemStateValueContraint
+          RBO:M2
+          RBO:M12
+        ) ;
+    ] ;
+  rdfs:range RBO:State ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToStateSet
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M12
+          RBO:M13
+          RBO:M14
+        ) ;
+    ] ;
+  rdfs:range RBO:StateSet ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToStateValue
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:StateValueContraint
+          RBO:M1
+          RBO:M2
+        ) ;
+    ] ;
+  rdfs:range RBO:StateValue ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToStateValues
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:StateSet ;
+  rdfs:range rdf:List ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToStimulus
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:OccuringFunctionality ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Function
+          RBO:System
+        ) ;
+    ] ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSubject
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:Main ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Function
+          RBO:System
+          RBO:Interface
+        ) ;
+    ] ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSubjectItem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M14
+          RBO:M15
+        ) ;
+    ] ;
+  rdfs:range RBO:Item ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSubjectState
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:M13 ;
+  rdfs:range RBO:State ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSubjectStateValue
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:M13 ;
+  rdfs:range RBO:StateValue ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSuffix
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:Action ;
+  rdfs:label "is related to suffix" ;
+  rdfs:range RBO:Suffix ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToSystem
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M9
+          RBO:M16
+          RBO:SystemStateValueContraint
+        ) ;
+    ] ;
+  rdfs:range RBO:System ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedToTraversingConcept
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain RBO:M10 ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Flow
+          RBO:Item
+        ) ;
+    ] ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedtoFlow
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:M5
+          RBO:M6
+          RBO:S2
+          RBO:S3
+          RBO:IngestOccuringFunctionality
+          RBO:EmitOccuringFunctionality
+        ) ;
+    ] ;
+  rdfs:range RBO:Flow ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isRelatedtoUOM
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Quantity
+          RBO:M1
+          RBO:M3
+          RBO:M4
+          RBO:S1
+          RBO:S3
+        ) ;
+    ] ;
+  rdfs:range <http://purl.oclc.org/NET/muo/muo#UnitOfMeasurement> ;
+  rdfs:subPropertyOf RBO:isRelatedToAttribute ;
+.
+RBO:isSimilarTo
+  rdf:type owl:SymmetricProperty ;
+  rdf:type owl:TransitiveProperty ;
+  rdfs:domain RBO:Attribute ;
+.

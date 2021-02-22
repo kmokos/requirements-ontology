@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://delab.csd.auth.gr/ontologies/2018/RMO-instances#"
+    xmlns:sp="http://spinrdf.org/sp#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:spin="http://spinrdf.org/spin#"
+    xmlns:spl="http://spinrdf.org/spl#"
+    xmlns:arg="http://spinrdf.org/arg#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://delab.csd.auth.gr/ontologies/2018/RMO-instances">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://spinrdf.org/spl"/>
+    <owl:versionInfo>Created with TopBraid Composer</owl:versionInfo>
+    <owl:imports rdf:resource="http://delab.csd.auth.gr/ontologies/2018/RMO"/>
+  </owl:Ontology>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

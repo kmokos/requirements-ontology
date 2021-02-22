@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://delab.csd.auth.gr/ontologies/2018/RDO-instances#"
+    xmlns:DSO="http://delab.csd.auth.gr/ontologies/2018/DCO#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:LO-instances="http://delab.csd.auth.gr/ontologies/2018/LO-instances#"
+    xmlns:LO="http://delab.csd.auth.gr/ontologies/2018/LO#"
+    xmlns:RBO="http://delab.csd.auth.gr/ontologies/2018/RBO#"
+    xmlns:spin="http://spinrdf.org/spin#"
+    xmlns:arg="http://spinrdf.org/arg#"
+    xmlns:RDO="http://delab.csd.auth.gr/ontologies/2018/RDO#"
+    xmlns:DSO-AOCS-instances="http://delab.csd.auth.gr/ontologies/2018/DSO-AOCS-instances#"
+    xmlns:DSO-instances="http://delab.csd.auth.gr/ontologies/2018/DSO-instances#"
+    xmlns:DSO-AOCS="http://delab.csd.auth.gr/ontologies/2018/DSO-AOCS#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:RMO-instances="http://delab.csd.auth.gr/ontologies/2018/RMO-instances#"
+    xmlns:sp="http://spinrdf.org/sp#"
+    xmlns:spl="http://spinrdf.org/spl#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+  xml:base="http://delab.csd.auth.gr/ontologies/2018/RDO-instances">
+  <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="http://delab.csd.auth.gr/ontologies/2018/LO-instances"/>
+    <owl:imports rdf:resource="http://delab.csd.auth.gr/ontologies/2018/RDO"/>
+    <owl:versionInfo>Created with TopBraid Composer</owl:versionInfo>
+    <owl:imports rdf:resource="http://spinrdf.org/spl"/>
+    <spin:imports rdf:resource="http://topbraid.org/spin/rdfsplus"/>
+    <owl:imports rdf:resource="http://delab.csd.auth.gr/ontologies/2018/DSO-instances"/>
+    <owl:imports rdf:resource="http://delab.csd.auth.gr/ontologies/2018/RMO-instances"/>
+  </owl:Ontology>
+  <rdf:Description rdf:about="http://delab.csd.auth.gr/ontologies/2018/SAO#Item">
+    <rdfs:subClassOf rdf:resource="http://delab.csd.auth.gr/ontologies/2018/RBO#Feature"/>
+  </rdf:Description>
+  <RBO:M0 rdf:ID="M0_1">
+    <RBO:isRelatedToAttribute rdf:resource="http://delab.csd.auth.gr/ontologies/2018/DSO-AOCS-instances#determine_used_STR_unit"/>
+    <RBO:isRelatedToState rdf:resource="http://delab.csd.auth.gr/ontologies/2018/DSO-AOCS-instances#SBM"/>
+  </RBO:M0>
+</rdf:RDF>
+
+<!-- Created with TopBraid -->

@@ -1,0 +1,1264 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/SAO
+# imports: http://spinrdf.org/spin
+# prefix: SAO
+
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
+@prefix SAO: <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://delab.csd.auth.gr/ontologies/2018/SAO>
+  rdf:type owl:Ontology ;
+  spin:imports <http://topbraid.org/spin/owlrl-all> ;
+  owl:imports <http://spinrdf.org/spin> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+SAO:Connection
+  rdf:type owl:Class ;
+  rdfs:comment "An Connection represents a set of mechanical, electrical, signal, or other properties that are common to a set of mutually connected Interfaces." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom SAO:Interface ;
+      owl:onProperty SAO:joins ;
+    ] ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:cardinality "2"^^xsd:nonNegativeInteger ;
+      owl:onProperty SAO:joins ;
+    ] ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateConcept ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+  owl:disjointWith SAO:TraversingConcept ;
+.
+SAO:Flow
+  rdf:type owl:Class ;
+  rdfs:comment "A Flow represents a non-discrete transfer of matter or energy between Functions. Examples of Flow include triggered events, electrical power, propellant, and heat." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:TraversingConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Function
+  rdf:type owl:Class ;
+  rdfs:comment "A Function is an operation or activity performed by a System. Every Function is a SpecifiedConcept, which implies that a Requirement can specify a Function. Functions, therefore, represent intended System behavior (e.x. send instrument telemetry packet). Functions may emit or ingest Flows representing non-discrete exchanges of matter or energy. Functions may send or receive Items representing discrete exchanges of matter or information." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:IdentifiedConcept
+  rdf:type owl:Class ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object spin:_this ;
+            sp:predicate SAO:dependsOn ;
+            sp:subject [
+                sp:varName "val" ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            sp:object [
+                sp:varName "val" ;
+              ] ;
+            sp:predicate [
+                sp:varName "pr" ;
+              ] ;
+            sp:subject spin:_this ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:in ;
+                sp:arg1 [
+                    sp:varName "pr" ;
+                  ] ;
+                sp:arg10 SAO:transfers ;
+                sp:arg11 SAO:hasState ;
+                sp:arg12 SAO:hasSubState ;
+                sp:arg13 SAO:takesValuesFrom ;
+                sp:arg14 SAO:isAvailableIn ;
+                sp:arg15 SAO:presents ;
+                sp:arg16 SAO:contains ;
+                sp:arg2 SAO:emits ;
+                sp:arg3 SAO:ingests ;
+                sp:arg4 SAO:sends ;
+                sp:arg5 SAO:receives ;
+                sp:arg6 SAO:sets ;
+                sp:arg7 SAO:setsTo ;
+                sp:arg8 SAO:invokes ;
+                sp:arg9 SAO:performs ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:ne ;
+                sp:arg1 spin:_this ;
+                sp:arg2 [
+                    sp:varName "val" ;
+                  ] ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:notExists ;
+                sp:elements (
+                    [
+                      sp:object owl:Class ;
+                      sp:predicate rdf:type ;
+                      sp:subject spin:_this ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+          [
+            rdf:type sp:Filter ;
+            sp:expression [
+                rdf:type sp:notExists ;
+                sp:elements (
+                    [
+                      sp:object owl:Class ;
+                      sp:predicate rdf:type ;
+                      sp:subject [
+                          sp:varName "val" ;
+                        ] ;
+                    ]
+                  ) ;
+              ] ;
+          ]
+        ) ;
+    ] ;
+  spin:rule [
+      rdf:type sp:Construct ;
+      sp:templates (
+          [
+            sp:object spin:_this ;
+            sp:predicate SAO:providesTo ;
+            sp:subject [
+                sp:varName "e2" ;
+              ] ;
+          ]
+        ) ;
+      sp:where (
+          [
+            rdf:type sp:Union ;
+            sp:elements (
+                (
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:receives ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:sends ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "interface1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "interface2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "s1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "s2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                )
+                (
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:ingests ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:emits ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "interface1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "interface2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "s1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "s2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                )
+                (
+                  [
+                    sp:object [
+                        sp:varName "f1" ;
+                      ] ;
+                    sp:predicate SAO:performs ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "f2" ;
+                      ] ;
+                    sp:predicate SAO:performs ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:ingests ;
+                              sp:subject [
+                                  sp:varName "f1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f1" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:emits ;
+                              sp:subject [
+                                  sp:varName "f2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "interface1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "interface2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "f1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "f2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:ne ;
+                        sp:arg1 spin:_this ;
+                        sp:arg2 [
+                            sp:varName "e2" ;
+                          ] ;
+                      ] ;
+                  ]
+                )
+                (
+                  [
+                    sp:object [
+                        sp:varName "f1" ;
+                      ] ;
+                    sp:predicate SAO:performs ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "f2" ;
+                      ] ;
+                    sp:predicate SAO:performs ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:receives ;
+                              sp:subject [
+                                  sp:varName "f1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f1" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:sends ;
+                              sp:subject [
+                                  sp:varName "f2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:transfers ;
+                              sp:subject [
+                                  sp:varName "interface2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface1" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "interface2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "interface1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "interface2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "f1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "f2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:ne ;
+                        sp:arg1 spin:_this ;
+                        sp:arg2 [
+                            sp:varName "e2" ;
+                          ] ;
+                      ] ;
+                  ]
+                )
+                (
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:transfers ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "val2" ;
+                      ] ;
+                    sp:predicate SAO:transfers ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f1" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:receives ;
+                              sp:subject [
+                                  sp:varName "f1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:sends ;
+                              sp:subject [
+                                  sp:varName "f2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 spin:_this ;
+                                  sp:arg2 [
+                                      sp:varName "e2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "f1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "f2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                )
+                (
+                  [
+                    sp:object [
+                        sp:varName "val1" ;
+                      ] ;
+                    sp:predicate SAO:transfers ;
+                    sp:subject spin:_this ;
+                  ]
+                  [
+                    sp:object [
+                        sp:varName "val2" ;
+                      ] ;
+                    sp:predicate SAO:transfers ;
+                    sp:subject [
+                        sp:varName "e2" ;
+                      ] ;
+                  ]
+                  [
+                    rdf:type sp:Filter ;
+                    sp:expression [
+                        rdf:type sp:exists ;
+                        sp:elements (
+                            [
+                              sp:object [
+                                  sp:varName "connection" ;
+                                ] ;
+                              sp:predicate SAO:traverses ;
+                              sp:subject [
+                                  sp:varName "val1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f1" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:ingests ;
+                              sp:subject [
+                                  sp:varName "f1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s1" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "f2" ;
+                                ] ;
+                              sp:predicate SAO:performs ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "val1" ;
+                                ] ;
+                              sp:predicate SAO:emits ;
+                              sp:subject [
+                                  sp:varName "f2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:presents ;
+                              sp:subject [
+                                  sp:varName "s2" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object spin:_this ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              sp:object [
+                                  sp:varName "e2" ;
+                                ] ;
+                              sp:predicate SAO:joins ;
+                              sp:subject [
+                                  sp:varName "connection" ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 spin:_this ;
+                                  sp:arg2 [
+                                      sp:varName "e2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                            [
+                              rdf:type sp:Filter ;
+                              sp:expression [
+                                  rdf:type sp:ne ;
+                                  sp:arg1 [
+                                      sp:varName "f1" ;
+                                    ] ;
+                                  sp:arg2 [
+                                      sp:varName "f2" ;
+                                    ] ;
+                                ] ;
+                            ]
+                          ) ;
+                      ] ;
+                  ]
+                )
+              ) ;
+          ]
+        ) ;
+    ] ;
+  rdfs:comment """An IdentifiedConcept is an object uniqely identifiable. 
+The object could be one of the following:
+- Component
+- Function
+- Item
+- Interface
+- Connection""" ;
+  rdfs:subClassOf owl:Thing ;
+.
+SAO:Interface
+  rdf:type owl:Class ;
+  rdfs:comment """An Interface represents a set of mechanical, electrical, signal, or other properties that describe some aspect of a Componen's connection to or interaction with another Component. It is important to distinguish between a Component, which is a discrete thing, and an Interface, which is a collection of properties. 
+
+We might model the launch vehicle and  the spacecraft as Systems. The properties that describe how the spacecraft is designed to attach to the launch vehicle would be captured in one Interface (and associated with the spacecraft using the presents property).
+
+The properties that describe how the launch vehicle is designed or configured to attach to the spacecraft would be captured in another Interface. The fact that two (or more) interfaces mate with each other is conveyed the existence of an Junction that joins the Interfaces.
+
+This method of modeling interfaces allows us to capture the asymmetric aspect of producer/consumer relationships, as well as providing a convenient method for associating the sets of properties and characterize the interconnection of any pair of Systems so that they can be analyzed for consistency.""" ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Item
+  rdf:type owl:Class ;
+  rdfs:comment "An Item is a discrete unit of material or information exchanged between two Functions." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:TraversingConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:SpecifiedConcept
+  rdf:type owl:Class ;
+  rdfs:comment "A Requirement “specifies”  a SpecifiedConcept (e.g., a System, Interface, or Function), where “specifies” means that the properties of the SpecifiedConcept are bound (constrained) by the Requirement." ;
+  rdfs:subClassOf owl:Thing ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:StateConcept ;
+  owl:disjointWith SAO:TraversingConcept ;
+.
+SAO:State
+  rdf:type owl:Class ;
+  rdfs:comment "State represents the state of a System" ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:StateConcept ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom SAO:State ;
+      owl:onProperty SAO:hasSubState ;
+    ] ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:StateConcept
+  rdf:type owl:Class ;
+  rdfs:comment "StateConcept is a particular condition that an IdentifiedElment is in at a specific time. Note, that a State may be a sub state, that has a value, which belongs to a StateSet that is a sub state set of another set." ;
+  rdfs:subClassOf owl:Thing ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:TraversingConcept ;
+.
+SAO:StateSet
+  rdf:type owl:Class ;
+  rdfs:comment "StateSet represents a collection of available states." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:StateConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:StateValue
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:label "" ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:StateConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:System ;
+.
+SAO:System
+  rdf:type owl:Class ;
+  rdfs:comment "A System is a group of interacting or interrelated entities that form a unified whole. Example of System includes launch vehicle, spacecraft, telecommunication subsystem, flight software, attitude control software." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  rdfs:subClassOf SAO:SpecifiedConcept ;
+  rdfs:subClassOf [
+      rdf:type owl:Restriction ;
+      owl:allValuesFrom SAO:State ;
+      owl:onProperty SAO:hasState ;
+    ] ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+.
+SAO:TraversingConcept
+  rdf:type owl:Class ;
+  rdfs:comment "A TraversingConcept is any model element that traverses an Interface" ;
+  rdfs:subClassOf owl:Thing ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:StateConcept ;
+.
+SAO:belongsTo
+  rdf:type owl:InverseFunctionalProperty ;
+  rdfs:domain SAO:StateValue ;
+  rdfs:range SAO:StateSet ;
+.
+SAO:contains
+  rdf:type owl:InverseFunctionalProperty ;
+  rdfs:domain SAO:System ;
+  rdfs:range SAO:System ;
+.
+SAO:dependsOn
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "" ;
+.
+SAO:emits
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Flow ;
+  owl:propertyDisjointWith SAO:ingests ;
+.
+SAO:hasState
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:System ;
+  rdfs:range SAO:State ;
+.
+SAO:hasSubState
+  rdf:type owl:InverseFunctionalProperty ;
+  rdfs:domain SAO:State ;
+  rdfs:range SAO:State ;
+.
+SAO:ingests
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Flow ;
+  owl:propertyDisjointWith SAO:emits ;
+.
+SAO:invokes
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Function ;
+.
+SAO:isAvailableIn
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:StateValue ;
+.
+SAO:isDecomposedTo
+  rdf:type owl:InverseFunctionalProperty ;
+  rdfs:domain SAO:Item ;
+  rdfs:range SAO:Item ;
+.
+SAO:isRelatedTo
+  rdfs:domain SAO:IdentifiedConcept ;
+.
+SAO:joins
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Connection ;
+  rdfs:range SAO:Interface ;
+.
+SAO:performs
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:System ;
+  rdfs:range SAO:Function ;
+.
+SAO:presents
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:System ;
+  rdfs:range SAO:Interface ;
+.
+SAO:providesTo
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "" ;
+.
+SAO:receives
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Item ;
+  owl:propertyDisjointWith SAO:sends ;
+.
+SAO:sends
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Item ;
+  owl:propertyDisjointWith SAO:receives ;
+.
+SAO:sets
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:Item ;
+  rdfs:range SAO:State ;
+.
+SAO:setsTo
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range SAO:StateValue ;
+.
+SAO:takesValuesFrom
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          SAO:State
+          SAO:Item
+        ) ;
+    ] ;
+  rdfs:range SAO:StateSet ;
+.
+SAO:transfers
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Interface ;
+  rdfs:range SAO:TraversingConcept ;
+.
+SAO:traverses
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:TraversingConcept ;
+  rdfs:range SAO:Connection ;
+.
+owl:NamedIndividual
+  owl:disjointWith SAO:IdentifiedConcept ;
+  owl:disjointWith SAO:SpecifiedConcept ;
+  owl:disjointWith SAO:StateConcept ;
+  owl:disjointWith SAO:TraversingConcept ;
+.
