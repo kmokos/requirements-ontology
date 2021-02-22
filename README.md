@@ -1,7 +1,5 @@
 # Requirements Ontology
-Our unified requirements ontology architecture allows covering multiple heterogeneous system domains. To this end, it provides a core glossary, in the form of an upper ontology, that contains the necessary terms and associated object descriptions to define various system-specific domain ontologies.
-
-Architecture was designed as a modular collection of six ontology categories equiped with classes for specifying requirements at different levels of specification including system, function and interface requirements:
+Our unified requirements ontology architecture allows covering multiple heterogeneous system domains. To this end, it provides a core glossary, in the form of an upper ontology, that contains the necessary terms and associated object descriptions to define various system-specific domain ontologies. Architecture was designed as a modular collection of six ontology categories equiped with classes for specifying requirements at different levels of specification including system, function and interface requirements:
 
 The System and Attributes Ontology (SAO) contains the core glossary and concepts used as elements of requirement specifications (e.g. system, function, interface, connection, flow, item, state). It plays the role of upper ontology supporting a broad semantic interoperability among a large number of domain-specific ontologies, i.e. it provides a common starting point, for the formulation of definitions.
 
