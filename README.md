@@ -1,5 +1,4 @@
-# requirements-ontology
-Requirements Ontology
+# Requirements Ontology
 Our unified requirements ontology architecture allows covering multiple heterogeneous system domains. To this end, it provides a core glossary, in the form of an upper ontology, that contains the necessary terms and associated object descriptions to define various system-specific domain ontologies.
 
 Architecture was designed as a modular collection of six ontology categories equiped with classes for specifying requirements at different levels of specification including system, function and interface requirements:
