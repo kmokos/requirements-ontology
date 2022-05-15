@@ -1,6 +1,6 @@
 # baseURI: http://delab.csd.auth.gr/ontologies/2018/RMO
-# prefix: RMO
 
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/RMO#> .
 @prefix RMO: <http://delab.csd.auth.gr/ontologies/2018/RMO#> .
 @prefix arg: <http://spinrdf.org/arg#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .

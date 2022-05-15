@@ -1,5 +1,5 @@
 # baseURI: http://delab.csd.auth.gr/ontologies/2018/SAO
-# imports: http://spinrdf.org/spin
+# imports: http://datashapes.org/dash
 # prefix: SAO
 
 @prefix : <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
@@ -8,6 +8,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix spin: <http://spinrdf.org/spin#> .
 @prefix spl: <http://spinrdf.org/spl#> .
@@ -15,8 +16,7 @@
 
 <http://delab.csd.auth.gr/ontologies/2018/SAO>
   rdf:type owl:Ontology ;
-  spin:imports <http://topbraid.org/spin/owlrl-all> ;
-  owl:imports <http://spinrdf.org/spin> ;
+  owl:imports <http://datashapes.org/dash> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
 SAO:Connection
@@ -26,11 +26,6 @@ SAO:Connection
   rdfs:subClassOf [
       rdf:type owl:Restriction ;
       owl:allValuesFrom SAO:Interface ;
-      owl:onProperty SAO:joins ;
-    ] ;
-  rdfs:subClassOf [
-      rdf:type owl:Restriction ;
-      owl:cardinality "2"^^xsd:nonNegativeInteger ;
       owl:onProperty SAO:joins ;
     ] ;
   owl:disjointWith SAO:Flow ;
@@ -75,936 +70,7 @@ SAO:Function
 .
 SAO:IdentifiedConcept
   rdf:type owl:Class ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object spin:_this ;
-            sp:predicate SAO:dependsOn ;
-            sp:subject [
-                sp:varName "val" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate [
-                sp:varName "pr" ;
-              ] ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:in ;
-                sp:arg1 [
-                    sp:varName "pr" ;
-                  ] ;
-                sp:arg10 SAO:transfers ;
-                sp:arg11 SAO:hasState ;
-                sp:arg12 SAO:hasSubState ;
-                sp:arg13 SAO:takesValuesFrom ;
-                sp:arg14 SAO:isAvailableIn ;
-                sp:arg15 SAO:presents ;
-                sp:arg16 SAO:contains ;
-                sp:arg2 SAO:emits ;
-                sp:arg3 SAO:ingests ;
-                sp:arg4 SAO:sends ;
-                sp:arg5 SAO:receives ;
-                sp:arg6 SAO:sets ;
-                sp:arg7 SAO:setsTo ;
-                sp:arg8 SAO:invokes ;
-                sp:arg9 SAO:performs ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 spin:_this ;
-                sp:arg2 [
-                    sp:varName "val" ;
-                  ] ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object owl:Class ;
-                      sp:predicate rdf:type ;
-                      sp:subject spin:_this ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object owl:Class ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "val" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object spin:_this ;
-            sp:predicate SAO:providesTo ;
-            sp:subject [
-                sp:varName "e2" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            rdf:type sp:Union ;
-            sp:elements (
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:receives ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:sends ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "s1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "s2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:ingests ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:emits ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "s1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "s2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "f1" ;
-                      ] ;
-                    sp:predicate SAO:performs ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "f2" ;
-                      ] ;
-                    sp:predicate SAO:performs ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:ingests ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:emits ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:ne ;
-                        sp:arg1 spin:_this ;
-                        sp:arg2 [
-                            sp:varName "e2" ;
-                          ] ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "f1" ;
-                      ] ;
-                    sp:predicate SAO:performs ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "f2" ;
-                      ] ;
-                    sp:predicate SAO:performs ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:receives ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:sends ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:transfers ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:ne ;
-                        sp:arg1 spin:_this ;
-                        sp:arg2 [
-                            sp:varName "e2" ;
-                          ] ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:transfers ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val2" ;
-                      ] ;
-                    sp:predicate SAO:transfers ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:receives ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:sends ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 spin:_this ;
-                                  sp:arg2 [
-                                      sp:varName "e2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate SAO:transfers ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val2" ;
-                      ] ;
-                    sp:predicate SAO:transfers ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate SAO:traverses ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:ingests ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate SAO:performs ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate SAO:emits ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:presents ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate SAO:joins ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 spin:_this ;
-                                  sp:arg2 [
-                                      sp:varName "e2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-              ) ;
-          ]
-        ) ;
-    ] ;
+  rdf:type sh:NodeShape ;
   rdfs:comment """An IdentifiedConcept is an object uniqely identifiable. 
 The object could be one of the following:
 - Component
@@ -1013,6 +79,8 @@ The object could be one of the following:
 - Interface
 - Connection""" ;
   rdfs:subClassOf owl:Thing ;
+  sh:rule SAO:dependsOn_rule1 ;
+  sh:rule SAO:providesTo_rule1 ;
 .
 SAO:Interface
   rdf:type owl:Class ;
@@ -1050,7 +118,7 @@ SAO:Item
 .
 SAO:SpecifiedConcept
   rdf:type owl:Class ;
-  rdfs:comment "A Requirement “specifies”  a SpecifiedConcept (e.g., a System, Interface, or Function), where “specifies” means that the properties of the SpecifiedConcept are bound (constrained) by the Requirement." ;
+  rdfs:comment "A Requirement specifies a SpecifiedConcept (e.g., a System, Interface, or Function), where specifies means that the properties of the SpecifiedConcept are bound (constrained) by the Requirement." ;
   rdfs:subClassOf owl:Thing ;
   owl:disjointWith SAO:Connection ;
   owl:disjointWith SAO:StateConcept ;
@@ -1085,7 +153,7 @@ SAO:StateConcept
 .
 SAO:StateSet
   rdf:type owl:Class ;
-  rdfs:comment "StateSet represents a collection of available states." ;
+  rdfs:comment "StateSet represents a collection of available state values." ;
   rdfs:subClassOf SAO:IdentifiedConcept ;
   rdfs:subClassOf SAO:StateConcept ;
   owl:disjointWith SAO:Connection ;
@@ -1150,8 +218,32 @@ SAO:contains
   rdfs:range SAO:System ;
 .
 SAO:dependsOn
-  rdf:type owl:ObjectProperty ;
+  rdf:type owl:TransitiveProperty ;
   rdfs:comment "" ;
+  rdfs:domain SAO:IdentifiedConcept ;
+  rdfs:range SAO:IdentifiedConcept ;
+.
+SAO:dependsOn_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+CONSTRUCT {
+    ?val SAO:dependsOn $this .
+}
+WHERE {
+    $this ?pr ?val .
+    FILTER (?pr IN (SAO:emits, SAO:ingests, SAO:sends, SAO:receives, SAO:sets, SAO:setsTo, SAO:invokes, SAO:performs, SAO:transfers, SAO:hasState, SAO:hasSubState, SAO:takesValuesFrom, SAO:isAvailableIn, SAO:presents, SAO:contains)) .
+    FILTER ($this != ?val) .
+    FILTER NOT EXISTS {
+        $this a owl:Class .
+    } .
+    FILTER NOT EXISTS {
+        ?val a owl:Class .
+    } .
+}""" ;
+  sh:order "2"^^xsd:decimal ;
+  sh:prefixes SAO: ;
+  sh:prefixes owl: ;
 .
 SAO:emits
   rdf:type owl:ObjectProperty ;
@@ -1211,6 +303,132 @@ SAO:presents
 SAO:providesTo
   rdf:type owl:ObjectProperty ;
   rdfs:comment "" ;
+  rdfs:domain SAO:IdentifiedConcept ;
+  rdfs:range SAO:IdentifiedConcept ;
+.
+SAO:providesTo_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+CONSTRUCT {
+    ?e2 SAO:providesTo $this .
+}
+WHERE {
+    {
+        $this SAO:receives ?val1 .
+        ?e2 SAO:sends ?val1 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?s1 SAO:performs $this .
+            ?s1 SAO:presents ?interface1 .
+            ?interface1 SAO:transfers ?val1 .
+            ?s2 SAO:performs ?e2 .
+            ?s2 SAO:presents ?interface2 .
+            ?interface2 SAO:transfers ?val1 .
+            ?connection SAO:joins ?interface1 .
+            ?connection SAO:joins ?interface2 .
+            FILTER (?interface1 != ?interface2) .
+            FILTER (?s1 != ?s2) .
+        } .
+    }
+    UNION
+    {
+        $this SAO:ingests ?val1 .
+        ?e2 SAO:emits ?val1 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?s1 SAO:performs $this .
+            ?s1 SAO:presents ?interface1 .
+            ?interface1 SAO:transfers ?val1 .
+            ?s2 SAO:performs ?e2 .
+            ?s2 SAO:presents ?interface2 .
+            ?interface2 SAO:transfers ?val1 .
+            ?connection SAO:joins ?interface1 .
+            ?connection SAO:joins ?interface2 .
+            FILTER (?interface1 != ?interface2) .
+            FILTER (?s1 != ?s2) .
+        } .
+    }
+    UNION
+    {
+        $this SAO:performs ?f1 .
+        ?e2 SAO:performs ?f2 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?f1 SAO:ingests ?val1 .
+            ?s1 SAO:performs ?f1 .
+            ?s1 SAO:presents ?interface1 .
+            ?interface1 SAO:transfers ?val1 .
+            ?s2 SAO:performs ?f2 .
+            ?f2 SAO:emits ?val1 .
+            ?s2 SAO:presents ?interface2 .
+            ?interface2 SAO:transfers ?val1 .
+            ?connection SAO:joins ?interface1 .
+            ?connection SAO:joins ?interface2 .
+            FILTER (?interface1 != ?interface2) .
+            FILTER (?f1 != ?f2) .
+        } .
+        FILTER ($this != ?e2) .
+    }
+    UNION
+    {
+        $this SAO:performs ?f1 .
+        ?e2 SAO:performs ?f2 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?f1 SAO:receives ?val1 .
+            ?s1 SAO:performs ?f1 .
+            ?s1 SAO:presents ?interface1 .
+            ?interface1 SAO:transfers ?val1 .
+            ?s2 SAO:performs ?f2 .
+            ?f2 SAO:sends ?val1 .
+            ?s2 SAO:presents ?interface2 .
+            ?interface2 SAO:transfers ?val1 .
+            ?connection SAO:joins ?interface1 .
+            ?connection SAO:joins ?interface2 .
+            FILTER (?interface1 != ?interface2) .
+            FILTER (?f1 != ?f2) .
+        } .
+        FILTER ($this != ?e2) .
+    }
+    UNION
+    {
+        $this SAO:transfers ?val1 .
+        ?e2 SAO:transfers ?val2 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?s1 SAO:performs ?f1 .
+            ?f1 SAO:receives ?val1 .
+            ?s1 SAO:presents $this .
+            ?s2 SAO:performs ?f2 .
+            ?f2 SAO:sends ?val1 .
+            ?s2 SAO:presents ?e2 .
+            ?connection SAO:joins $this .
+            ?connection SAO:joins ?e2 .
+            FILTER (?this != ?e2) .
+            FILTER (?f1 != ?f2) .
+        } .
+    }
+    UNION
+    {
+        $this SAO:transfers ?val1 .
+        ?e2 SAO:transfers ?val2 .
+        FILTER EXISTS {
+            ?val1 SAO:traverses ?connection .
+            ?s1 SAO:performs ?f1 .
+            ?f1 SAO:ingests ?val1 .
+            ?s1 SAO:presents $this .
+            ?s2 SAO:performs ?f2 .
+            ?f2 SAO:emits ?val1 .
+            ?s2 SAO:presents ?e2 .
+            ?connection SAO:joins $this .
+            ?connection SAO:joins ?e2 .
+            FILTER ($this != ?e2) .
+            FILTER (?f1 != ?f2) .
+        } .
+    } .
+}""" ;
+  sh:order "3"^^xsd:decimal ;
+  sh:prefixes <http://delab.csd.auth.gr/ontologies/2018/SAO> ;
 .
 SAO:receives
   rdf:type owl:ObjectProperty ;
@@ -1227,8 +445,13 @@ SAO:sends
 SAO:sets
   rdf:type owl:ObjectProperty ;
   rdfs:domain SAO:Function ;
-  rdfs:range SAO:Item ;
-  rdfs:range SAO:State ;
+  rdfs:range [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          SAO:Item
+          SAO:State
+        ) ;
+    ] ;
 .
 SAO:setsTo
   rdf:type owl:ObjectProperty ;
@@ -1262,3 +485,274 @@ owl:NamedIndividual
   owl:disjointWith SAO:StateConcept ;
   owl:disjointWith SAO:TraversingConcept ;
 .
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:in ;
+  sp:arg10 SAO:transfers ;
+  sp:arg11 SAO:hasState ;
+  sp:arg12 SAO:hasSubState ;
+  sp:arg13 SAO:takesValuesFrom ;
+  sp:arg14 SAO:isAvailableIn ;
+  sp:arg15 SAO:presents ;
+  sp:arg16 SAO:contains ;
+  sp:arg6 SAO:sets ;
+  sp:arg7 SAO:setsTo ;
+  sp:arg8 SAO:invokes ;
+  sp:arg9 SAO:performs ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  [
+    rdf:type sp:Union ;
+  ]
+).
+(
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+).

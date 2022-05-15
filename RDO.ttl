@@ -1,34 +1,81 @@
 # baseURI: http://delab.csd.auth.gr/ontologies/2018/RDO
+# imports: http://datashapes.org/dash
 # imports: http://delab.csd.auth.gr/ontologies/2018/DSO
 # imports: http://delab.csd.auth.gr/ontologies/2018/RBO
-# imports: http://delab.csd.auth.gr/ontologies/2018/RMO
-# imports: http://spinrdf.org/spl
 # prefix: RDO
 
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/RDO#> .
+@prefix EAO: <http://delab.csd.auth.gr/ontologies/2018/EAO#> .
 @prefix LO: <http://delab.csd.auth.gr/ontologies/2018/LO#> .
+@prefix RBO: <http://delab.csd.auth.gr/ontologies/2018/RBO#> .
 @prefix RDO: <http://delab.csd.auth.gr/ontologies/2018/RDO#> .
+@prefix SAO: <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
 @prefix arg: <http://spinrdf.org/arg#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix spin: <http://spinrdf.org/spin#> .
 @prefix spl: <http://spinrdf.org/spl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://delab.csd.auth.gr/ontologies/2018/RBO#IfBlock>
+LO:BeComposedFrom
+  RDO:isRelatedToSAOProperty1 SAO:isDecomposedTo ;
+.
+LO:Contain
+  RDO:isRelatedToSAOProperty1 SAO:contains ;
+.
+LO:Emit
+  RDO:isRelatedToSAOProperty1 SAO:emits ;
+.
+LO:HaveState
+  RDO:isRelatedToSAOProperty1 SAO:hasState ;
+.
+LO:HaveSubState
+  RDO:isRelatedToSAOProperty1 SAO:hasSubState ;
+.
+LO:Ingest
+  RDO:isRelatedToSAOProperty1 SAO:ingests ;
+.
+LO:Invoke
+  RDO:isRelatedToSAOProperty1 SAO:invokes ;
+.
+LO:Perform
+  RDO:isRelatedToSAOProperty1 SAO:performs ;
+.
+LO:Present
+  RDO:isRelatedToSAOProperty1 SAO:presents ;
+.
+LO:Receive
+  RDO:isRelatedToSAOProperty1 SAO:receives ;
+.
+LO:Send
+  RDO:isRelatedToSAOProperty1 SAO:sends ;
+.
+LO:Set
+  RDO:isRelatedToSAOProperty1 SAO:sets ;
+  RDO:isRelatedToSAOProperty2 SAO:setsTo ;
+.
+LO:TakeValuesFrom
+  RDO:isRelatedToSAOProperty1 SAO:takesValuesFrom ;
+.
+LO:Transfer
+  RDO:isRelatedToSAOProperty1 SAO:transfers ;
+.
+RBO:Boilerplate
+  owl:disjointWith RDO:Property ;
+  owl:disjointWith RDO:Requirement ;
+.
+RBO:IfBlock
   rdfs:comment """Introduces a logical constraint.
 Paraphrases: in case, provided that, on condition that""" ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/RBO#hasPreposition>
-  rdfs:subPropertyOf <http://delab.csd.auth.gr/ontologies/2018/RBO#hasOperator> ;
-.
 <http://delab.csd.auth.gr/ontologies/2018/RDO>
   rdf:type owl:Ontology ;
+  owl:imports <http://datashapes.org/dash> ;
   owl:imports <http://delab.csd.auth.gr/ontologies/2018/DSO> ;
   owl:imports <http://delab.csd.auth.gr/ontologies/2018/RBO> ;
-  owl:imports <http://delab.csd.auth.gr/ontologies/2018/RMO> ;
-  owl:imports <http://spinrdf.org/spl> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
 RDO:AmbiguousRequirement
@@ -36,2494 +83,2560 @@ RDO:AmbiguousRequirement
   rdfs:comment "" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:AmbiguousRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:AmbiguousRequirement .
+    $this RDO:hasAmbiguousConcept ?c1 .
+    $this RDO:hasAmbiguousConcept2 ?c2 .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e1 . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    ?e1 rdf:type ?c1 .
+    ?c1 rdfs:subClassOf* SAO:IdentifiedConcept .
+    ?c2 rdfs:subClassOf ?c1 .
+    FILTER (?c2 != rdfs:Class) .
+    ?e2 rdf:type ?c2 .
+    FILTER (?e2 != ?e1) .
+}""" ;
+  sh:order "44"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?function rdf:type SAO:Function .
+    ?s1 SAO:performs ?function .
+    ?function ?saoProperty1 ?i1 .
+    ?function SAO:dependsOn ?s1 .
+    ?function RDO:isInferenced true .
+    ?i1 SAO:dependsOn ?function .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i1 .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M1, RBO:M3, RBO:M4))
+    BIND (CONCAT(CONCAT(strafter(str(?a1),\"#\"), \"_\"), strafter(str(?i1),\"#\")) AS ?functionName) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?functionName))
+             AS ?function)
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+   FILTER NOT EXISTS 
+   { 
+     ?function rdf:type SAO:Function . 
+   } 
+}""" ;
+  sh:order "20"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule2
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?function ?saoProperty2 ?v1 .
+    ?v1 SAO:dependsOn ?function .
+    ?function RDO:isInferenced true .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i1 .
+    ?m1 RBO:isRelatedToStateValue ?v1 . 
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M1))
+    BIND (CONCAT(CONCAT(strafter(str(?a1),\"#\"), \"_\"), strafter(str(?i1),\"#\")) AS ?functionName) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?functionName))
+             AS ?function)
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty2+ ?saoProperty2 .
+   FILTER EXISTS 
+   { 
+     ?function rdf:type SAO:Function . 
+   } 
+}""" ;
+  sh:order "21"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule3
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?function rdf:type SAO:Function .
+    ?s1 SAO:performs ?function .
+    ?function ?saoProperty1 ?i1 .
+    ?function SAO:dependsOn ?s1 .
+    ?function RDO:isInferenced true .
+    ?i1 SAO:dependsOn ?function .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i1 .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M5, RBO:M6))
+    BIND (CONCAT(CONCAT(strafter(str(?a1),\"#\"), \"_\"), strafter(str(?i1),\"#\")) AS ?functionName) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?functionName))
+             AS ?function)
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+   FILTER NOT EXISTS 
+   { 
+     ?function rdf:type SAO:Function . 
+   } 
+}""" ;
+  sh:order "22"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule4
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?function rdf:type SAO:Function .
+    ?s1 SAO:performs ?function .
+    ?function ?saoProperty1 ?state .
+    ?function ?saoProperty2 ?v1 .
+    ?function SAO:dependsOn ?s1 .
+    ?function RDO:isInferenced true .
+    ?state SAO:dependsOn ?function .
+    ?v1 SAO:dependsOn ?function .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToState ?state .
+    ?m1 RBO:isRelatedToStateValue ?v1 . 
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M2))
+    BIND (CONCAT(CONCAT(strafter(str(?a1),\"#\"), \"_\"), strafter(str(?state),\"#\")) AS ?functionName) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?functionName))
+             AS ?function)
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+    ?t1 RDO:isRelatedToSAOProperty2+ ?saoProperty2 .
+   FILTER NOT EXISTS 
+   { 
+     ?function rdf:type SAO:Function . 
+   } 
+}""" ;
+  sh:order "23"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule5
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?i1 .
+    ?i1 SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:Function .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M1, RBO:M3, RBO:M4))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "24"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule6
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty2 ?v1 .
+    ?v1 SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:Function .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i .
+    ?m1 RBO:isRelatedToStateValue ?v1 .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M1))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty2+ ?saoProperty2 .
+}""" ;
+  sh:order "25"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Function_rule7
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?f .
+    ?f SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:Function .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToFunction ?f .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M8))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "26"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
 RDO:FunctionalRequirement
   rdf:type owl:Class ;
   rdfs:comment "A Requirement that specifies a Function" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:FunctionalRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:FunctionalRequirement .
+}
+WHERE {
+    ?x RDO:isSpecifiedBy $this .
+    ?x rdf:type/rdfs:subClassOf* SAO:Function .
+}""" ;
+  sh:order "34"^^xsd:decimal ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
 RDO:IncompleteRequirement
   rdf:type owl:Class ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate RDO:hasAbstractConcept ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object owl:Class ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate RDO:isMissingConcept ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#providesTo> ;
-            sp:subject [
-                sp:varName "val" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:exists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#providesTo> ;
-                      sp:subject [
-                          sp:varName "e1" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "e1" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "x" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate RDO:isMissingConcept ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#belongsTo> ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#belongsTo> ;
-            sp:subject [
-                sp:varName "val" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate RDO:isMissingConcept ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#dependsOn> ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:exists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "req" ;
-                        ] ;
-                      sp:predicate RDO:isSpecifiedBy ;
-                      sp:subject [
-                          sp:varName "e1" ;
-                        ] ;
-                    ]
-                    [
-                      sp:object [
-                          sp:varName "e1" ;
-                        ] ;
-                      sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#dependsOn> ;
-                      sp:subject [
-                          sp:varName "val" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
   rdfs:comment "A requirement consisting of inconcrete attributes, namely, not instantiated attributes and therefore a OWL:Class" ;
   rdfs:subClassOf RDO:Requirement ;
+.
+RDO:IncompleteRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this RDO:isMissingInstanceOf ?e .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    ?e rdf:type owl:Class .
+}""" ;
+  sh:order "35"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+  sh:prefixes owl: ;
+.
+RDO:IncompleteRequirement_rule2a
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX EAO:<http://delab.csd.auth.gr/ontologies/2018/EAO#>
+PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this  RDO:isMissingConcept ?val .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    ?val SAO:providesTo ?e .
+    FILTER NOT EXISTS {
+        {?val rdf:type/rdfs:subClassOf* EAO:Environment .}
+        UNION
+        {
+            ?env SAO:performs ?val .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+        }
+        UNION
+        {
+            ?env SAO:performs ?env_function .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+            ?env_function ?pl ?val .
+            FILTER (STRBEFORE(str(?pl), \"#\") = \"http://delab.csd.auth.gr/ontologies/2018/SAO\") .
+        }
+    }
+    FILTER NOT EXISTS {
+        {?req  ?p3 ?y . ?p3 rdfs:subPropertyOf* RDO:hasClause}
+        {?y ?p4 ?val . ?p4 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+        FILTER ($this != ?req) .
+    } .
+    FILTER (?val != ?e) .
+}
+
+""" ;
+  sh:order "36"^^xsd:decimal ;
+  sh:prefixes EAO: ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:IncompleteRequirement_rule2b
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX EAO:<http://delab.csd.auth.gr/ontologies/2018/EAO#>
+PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this  RDO:isMissingConcept ?e .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    ?e rdf:type/rdfs:subClassOf+ SAO:IdentifiedConcept .
+    FILTER EXISTS {
+        ?x RBO:isRelatedToAction ?action .
+        FILTER (?e != ?action)
+     }    
+    FILTER NOT EXISTS {
+        ?env SAO:performs ?env_function .
+        ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+        ?env_function ?pl ?e .
+        FILTER (STRBEFORE(str(?pl), \"#\") = \"http://delab.csd.auth.gr/ontologies/2018/SAO\") .
+    }
+    FILTER NOT EXISTS {
+        {?req  ?p3 ?y . ?p3 rdfs:subPropertyOf* RDO:hasClause}
+        {?y ?p4 ?e . ?p4 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+        FILTER ($this != ?req) .
+    }
+}
+
+""" ;
+  sh:order "37"^^xsd:decimal ;
+  sh:prefixes EAO: ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:IncompleteRequirement_rule3a
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX EAO:<http://delab.csd.auth.gr/ontologies/2018/EAO#>
+PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this RDO:isMissingProducer ?val .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf+ RBO:isRelatedToPlaceholder}
+    ?val SAO:providesTo ?e .
+    FILTER NOT EXISTS {
+        {?val rdf:type/rdfs:subClassOf* EAO:Environment .}
+        UNION
+        {
+            ?env SAO:performs ?val .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+        }
+        UNION
+        {
+            ?env SAO:performs ?env_function .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+            ?env_function ?pl ?val .
+            FILTER (STRBEFORE(str(?pl), \"#\") = \"http://delab.csd.auth.gr/ontologies/2018/SAO\") .
+        }
+    }
+    FILTER NOT EXISTS {
+        {?req  ?p3 ?y . ?p3 rdfs:subPropertyOf* RDO:hasClause}
+        {?y ?p4 ?val . ?p4 rdfs:subPropertyOf+ RBO:isRelatedToPlaceholder}
+       FILTER ($this != ?req) .
+    }.
+    FILTER (?val != ?e ) .
+}""" ;
+  sh:order "38"^^xsd:decimal ;
+  sh:prefixes EAO: ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:IncompleteRequirement_rule3b
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX EAO:<http://delab.csd.auth.gr/ontologies/2018/EAO#>
+PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this RDO:isMissingProducer ?val .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    {?x RBO:isRelatedToAction ?action .}
+    ?subject RDO:isSubjectOfRequirement $this .
+    FILTER (?e != ?subject && ?e != ?action)
+    ?e rdf:type/rdfs:subClassOf* SAO:TraversingConcept .
+    ?e SAO:dependsOn+ ?val .
+    FILTER NOT EXISTS {
+        {?val rdf:type/rdfs:subClassOf* EAO:Environment .}
+        UNION
+        {
+            ?env SAO:performs ?val .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+        }
+        UNION
+        {
+            ?env SAO:performs ?env_function .
+            ?env rdf:type/rdfs:subClassOf* EAO:Environment .
+            ?env_function ?pl ?val .
+            FILTER (STRBEFORE(str(?pl), \"#\") = \"http://delab.csd.auth.gr/ontologies/2018/SAO\") .
+        }
+    }
+    FILTER (?val != ?subject)
+    FILTER NOT EXISTS {
+        {?req  ?p3 ?y . ?p3 rdfs:subPropertyOf* RDO:hasClause}
+        {?y ?p4 ?e1 . ?p4 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+       FILTER ($this != ?req) .
+       ?e1 SAO:dependsOn+ ?val . 
+    }
+    FILTER EXISTS {
+        BIND (CONCAT(CONCAT(strafter(str(?action),\"#\"), \"_\"), strafter(str(?e),\"#\")) AS ?functionName) .
+        BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?functionName))
+             AS ?function) .
+        FILTER (?val != ?function) .
+    }
+}""" ;
+  sh:order "39"^^xsd:decimal ;
+  sh:prefixes EAO: ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:IncompleteRequirement_rule4
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:IncompleteRequirement .
+    $this  RDO:isMissingState ?val .
+}
+WHERE {
+    {$this ?p1 ?x . ?p1 rdfs:subPropertyOf* RDO:hasClause}
+    {?x ?p2 ?e . ?p2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+    ?e SAO:belongsTo ?s .
+    ?val SAO:belongsTo ?s .
+    FILTER NOT EXISTS {
+        {$req ?p3 ?y . ?p3 rdfs:subPropertyOf* RDO:hasClause}
+        {?y ?p4 ?val . ?p4 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder}
+        FILTER ($this != ?req) .
+    } .
+    FILTER (?val != ?e) .
+}""" ;
+  sh:order "40"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
 .
 RDO:InconsistentRequirement
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:InconsistentRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:InconsistentRequirement .
+    $this RDO:isInconsistentTo ?r2 .
+}
+WHERE {
+    $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL {?c1 RBO:isRelatedToQuantifier ?q1}
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL {?placeholder1 RBO:isRelatedToQuantifier ?q1}
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToTraversingConcept ?t .
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c2 RBO:isRelatedToQuantifier ?q2}
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder2 RBO:isRelatedToQuantifier ?q2 }
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToTraversingConcept ?t .
+    ?a1 RBO:contradictsWith ?a2 . 
+    OPTIONAL{
+        FILTER (
+            (EXISTS{?q2 (RBO:isSimilarTo|^RBO:isSimilarTo) ?q1 .})
+            ||
+            (?q2=?q1)
+        )
+    }
+}""" ;
+  sh:order "41"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:InconsistentRequirement_rule2
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?this a RDO:InconsistentRequirement .
+    $this RDO:isInconsistentTo ?r2 .
+}
+WHERE {
+    $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?c1 RBO:isRelatedToQuantifier ?q1 .
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?placeholder1 RBO:isRelatedToQuantifier ?q1 .
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToTraversingConcept ?t .
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?c2 RBO:isRelatedToQuantifier ?q2 .
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?placeholder2 RBO:isRelatedToQuantifier ?q2 .
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToTraversingConcept ?t .
+    FILTER (
+        (EXISTS{?a1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?a2 .})
+        ||
+        (?a1=?a2)
+    )
+    ?q2 RBO:contradictsWith ?q1 .
+}""" ;
+  sh:order "42"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:InconsistentRequirement_rule3
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:InconsistentRequirement .
+    $this RDO:isInconsistentTo ?r2 .
+}
+WHERE {
+   $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?c1 RBO:isRelatedToQuantifier ?q1 .
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?placeholder1 RBO:isRelatedToQuantifier ?q1 .
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToTraversingConcept ?t .
+    ?c1 ?pr5 ?inconsistent_placeholder1 .
+    ?pr5 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+    FILTER ((?pr5 != RBO:isRelatedToTraversingConcept) && (?pr5 != ?pr1) && (?pr5 != RBO:isRelatedToAction))
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?c2 RBO:isRelatedToQuantifier ?q2 .
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            ?placeholder2 RBO:isRelatedToQuantifier ?q2 .
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToTraversingConcept ?t .
+    ?c2 ?pr5 ?inconsistent_placeholder2 .
+    FILTER ((?pr5 != RBO:isRelatedToTraversingConcept) && (?pr5 != ?pr2))
+    FILTER (
+        (EXISTS{?a1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?a2 .})
+        ||
+        (?a1=?a2)
+    )
+    FILTER (
+        (EXISTS{?q1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?q2 .})
+        ||
+        (?q1=?q2)
+    )
+    FILTER (
+        (EXISTS{?inconsistent_placeholder2 RBO:contradictsWith ?inconsistent_placeholder1 .})
+        ||
+        (?inconsistent_placeholder2!=?inconsistent_placeholder1)
+    )
+}""" ;
+  sh:order "43"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
 RDO:InterfaceRequirement
   rdf:type owl:Class ;
   rdfs:comment "A Requirement that specifies an Interface" ;
   rdfs:subClassOf RDO:Requirement ;
+.
+RDO:InterfaceRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:InterfaceRequirement .
+}
+WHERE {
+    ?x RDO:isSpecifiedBy $this .
+    ?x rdf:type/rdfs:subClassOf* SAO:Interface .
+}""" ;
+  sh:order "33"^^xsd:decimal ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Interface_rule1
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?interface1 rdf:type SAO:Interface .
+    ?interface2 rdf:type SAO:Interface .
+    ?connection rdf:type SAO:Connection .
+    ?system1 SAO:presents  ?interface1 .
+    ?system2 SAO:presents  ?interface2 .
+    ?connection SAO:joins  ?interface1 .
+    ?connection SAO:joins  ?interface2 .
+    ?interface1 SAO:transfers ?item.
+    ?interface2 SAO:transfers ?item.
+    ?item SAO:traverses ?connection  .
+    ?interface1 SAO:dependsOn ?system1 .
+    ?interface2 SAO:dependsOn ?system2 .
+    ?interface1 SAO:dependsOn ?connection .
+    ?interface2  SAO:dependsOn ?connection .
+    ?interface1 RDO:isInferenced ?is_inferenced1 .
+    ?interface2 RDO:isInferenced ?is_inferenced2 .
+    ?item SAO:dependsOn ?interface1 .
+    ?item SAO:dependsOn ?interface2 .
+    ?connection SAO:dependsOn ?item .
+    ?connection RDO:isInferenced ?is_inferenced4 .
+}
+WHERE {
+    ?system1 SAO:performs ?function1 .
+    ?function1 SAO:sends ?item .
+    ?system2 SAO:performs ?function2 .
+    ?function2 SAO:receives ?item .
+    FILTER (?system1 != ?system2) .
+
+     # binding defaults
+    BIND (CONCAT(strafter(str(?system1),\"#\"), \"_interface\") AS ?interface_name1) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?interface_name1))
+             AS ?default_interface_name1) .
+    BIND (CONCAT(strafter(str(?system2),\"#\"), \"_interface\") AS ?interface_name2) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?interface_name2))
+             AS ?default_interface_name2).
+
+    OPTIONAL {?system1 SAO:presents ?temp_interface1 .
+        OPTIONAL {?temp_interface1 RDO:isInferenced ?temp_inferenced1 .}
+    }
+    OPTIONAL {?system2 SAO:presents ?temp_interface2 .
+        OPTIONAL {?temp_interface2 RDO:isInferenced ?temp_inferenced2 .}
+    }
+
+   # either take interface values or defaults and bind it as the result
+   BIND(COALESCE(?temp_interface1,  ?default_interface_name1) AS ?interface1).
+   BIND(COALESCE(?temp_interface2,  ?default_interface_name2) AS ?interface2).
+   BIND(IF(BOUND(?temp_interface1),  COALESCE(?temp_inferenced1, false), true) AS ?is_inferenced1).
+   BIND(IF(BOUND(?temp_interface2),  COALESCE(?temp_inferenced2, false), true) AS ?is_inferenced2).
+
+     # binding defaults
+    BIND (CONCAT(CONCAT(CONCAT(strafter(str(?system1),\"#\"), \"_\"), strafter(str(?system2),\"#\")), \"_connection\") AS ?connection_name) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?connection_name))
+             AS ?default_connection_name) .
+
+    OPTIONAL {?temp_connection SAO:joins ?temp_interface1 .}
+    OPTIONAL {?temp_connection SAO:joins ?temp_interface2 .}
+
+    OPTIONAL {?temp_connection RDO:isInferenced ?temp_inferenced3 .}
+
+   # either take connection values or defaults and bind it as the result
+   BIND(COALESCE(?temp_connection,  ?default_connection_name) AS ?new_connection).
+   BIND(IF(BOUND(?temp_connection),  COALESCE(?temp_inferenced3, false), true) AS ?is_inferenced3).
+
+  OPTIONAL {
+      $req RDO:hasMain ?main .
+      {?main RBO:isRelatedToPlaceholder ?subject . ?subject rdfs:subClassOf* SAO:System}
+      ?subject SAO:contains+ ?system1 .
+      ?subject SAO:contains+ ?system2 .
+      {?main RBO:isRelatedToPlaceholder ?upper_system_connection . ?subject rdfs:subClassOf* SAO:Connection}
+      OPTIONAL {?upper_system_connection RDO:isInferenced ?temp_inferenced4 .}
+  }
+
+   # either take connection values or defaults and bind it as the result
+   BIND(COALESCE(?upper_system_connection,  ?new_connection) AS ?connection).
+
+   BIND(IF(BOUND(?upper_system_connection),  COALESCE(?temp_inferenced4, false), ?is_inferenced3) AS ?is_inferenced4).
+}""" ;
+  sh:order "27"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:Interface_rule2
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?interface1 rdf:type SAO:Interface .
+    ?interface2 rdf:type SAO:Interface .
+    ?connection rdf:type SAO:Connection .
+    ?system1 SAO:presents  ?interface1 .
+    ?system2 SAO:presents  ?interface2 .
+    ?connection SAO:joins  ?interface1 .
+    ?connection SAO:joins  ?interface2 .
+    ?interface1 SAO:transfers ?flow.
+    ?interface2 SAO:transfers ?flow.
+    ?item SAO:traverses ?connection  .
+    ?interface1 SAO:dependsOn ?system1 .
+    ?interface2 SAO:dependsOn ?system2 .
+    ?interface1  SAO:dependsOn ?connection .
+    ?interface2  SAO:dependsOn ?connection .
+    ?interface1  RDO:isInferenced ?is_inferenced1 .
+    ?interface2  RDO:isInferenced ?is_inferenced2 .
+    ?flow SAO:dependsOn ?interface1 .
+    ?flow SAO:dependsOn ?interface2 .
+    ?connection SAO:dependsOn ?item .
+    ?connection  RDO:isInferenced ?is_inferenced4 .
+}
+WHERE {
+    ?system1 SAO:performs ?function1 .
+    ?function1 SAO:emits ?flow .
+    ?system2 SAO:performs ?function2 .
+    ?function2 SAO:ingests ?flow .
+    FILTER (?system1 != ?system2) .
+
+     # binding defaults
+    BIND (CONCAT(strafter(str(?system1),\"#\"), \"_interface\") AS ?interface_name1) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?interface_name1))
+             AS ?default_interface_name1) .
+    BIND (CONCAT(strafter(str(?system2),\"#\"), \"_interface\") AS ?interface_name2) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?interface_name2))
+             AS ?default_interface_name2).
+
+    OPTIONAL {?system1 SAO:presents ?temp_interface1 .
+        OPTIONAL {?temp_interface1 RDO:isInferenced ?temp_inferenced1 .}
+    }
+    OPTIONAL {?system2 SAO:presents ?temp_interface2 .
+        OPTIONAL {?temp_interface2 RDO:isInferenced ?temp_inferenced2 .}
+    }
+
+   # either take interface values or defaults and bind it as the result
+   BIND(COALESCE(?temp_interface1,  ?default_interface_name1) AS ?interface1).
+   BIND(COALESCE(?temp_interface2,  ?default_interface_name2) AS ?interface2).
+
+   BIND(IF(BOUND(?temp_interface1),  COALESCE(?temp_inferenced1, false), true) AS ?is_inferenced1).
+   BIND(IF(BOUND(?temp_interface2),  COALESCE(?temp_inferenced2, false), true) AS ?is_inferenced2).
+
+     # binding defaults
+    BIND (CONCAT(CONCAT(CONCAT(strafter(str(?system1),\"#\"), \"_\"), strafter(str(?system2),\"#\")), \"_connection\") AS ?connection_name) .
+	BIND (URI(CONCAT (\"http://delab.csd.auth.gr/ontologies/2018/RDO-instances#\", ?connection_name))
+             AS ?default_connection_name) .
+
+    OPTIONAL {?temp_connection SAO:joins ?temp_interface1 .}
+    OPTIONAL {?temp_connection SAO:joins ?temp_interface2 .}
+
+    OPTIONAL {?temp_connection RDO:isInferenced ?temp_inferenced3 .}
+
+   # either take connection values or defaults and bind it as the result
+   BIND(COALESCE(?temp_connection,  ?default_connection_name) AS ?new_connection).
+
+   BIND(IF(BOUND(?temp_connection),  COALESCE(?temp_inferenced3, false), true) AS ?is_inferenced3).
+
+  OPTIONAL {
+      $req RDO:hasMain ?main .
+      {?main RBO:isRelatedToPlaceholder ?subject . ?subject rdfs:subClassOf* SAO:System}
+      ?subject SAO:contains+ ?system1 .
+      ?subject SAO:contains+ ?system2 .
+      {?main RBO:isRelatedToPlaceholder ?uppper_system_connection . ?subject rdfs:subClassOf* SAO:Connection}
+      OPTIONAL {?upper_system_connection RDO:isInferenced ?temp_inferenced4 .}
+  }
+
+   # either take connection values or defaults and bind it as the result
+   BIND(COALESCE(?uppper_system_connection,  ?new_connection) AS ?connection).
+
+   BIND(IF(BOUND(?upper_system_connection),  COALESCE(?temp_inferenced4, false), ?is_inferenced3) AS ?is_inferenced4).
+}""" ;
+  sh:order "28"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
 .
 RDO:NoisyRequirement
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:NoisyRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX owl:<http://www.w3.org/2002/07/owl#>
+CONSTRUCT {
+    $this a RDO:NoisyRequirement .
+    $this RDO:hasNoisyConcept ?placeholder .
+}
+WHERE {
+    $this rdf:type RDO:Requirement .
+    $this (RDO:hasMain|RDO:hasPrefix|RDO:hasSuffix) ?boilerplate .
+    FILTER EXISTS {
+         {
+             ?boilerplate ?p1 ?placeholder .     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+         UNION
+         {
+             ?boilerplate ?p1 ?v1 .     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v1 ?p2 ?placeholder .     
+             ?p2 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+         UNION
+         {
+             ?boilerplate ?p1 ?v1.     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v1 ?p2 ?v2 .     
+             ?p2 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v2 ?p3 ?placeholder .     
+             ?p3 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+	}
+    ?placeholder rdf:type/rdfs:subClassOf* RBO:Entity .
+    FILTER EXISTS {
+        {?placeholder rdf:type/rdfs:subClassOf SAO:IdentifiedConcept .}
+        UNION
+        {?placeholder rdf:type/rdfs:subClassOf RBO:ComplexEntity .}
+        UNION
+        {?placeholder rdf:type/rdfs:subClassOf RBO:SimpleEntity .}
+    }
+}""" ;
+  sh:order "45"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+  sh:prefixes owl: ;
+.
 RDO:OpaqueRequirement
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:OpaqueRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:OpaqueRequirement . 
+    $this RDO:hasOpaqueConcept ?placeholder .
+}
+WHERE {
+    $this rdf:type RDO:Requirement .
+    $this (RDO:hasMain|RDO:hasPrefix|RDO:hasSuffix) ?boilerplate .
+    OPTIONAL{
+         {
+             ?boilerplate ?p1 ?placeholder .     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+         UNION
+         {
+             ?boilerplate ?p1 ?v1 .     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v1 ?p2 ?placeholder .     
+             ?p2 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+         UNION
+         {
+             ?boilerplate ?p1 ?v1.     
+             ?p1 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v1 ?p2 ?v2 .     
+             ?p2 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+             ?v2 ?p3 ?placeholder .     
+             ?p3 rdfs:subPropertyOf RBO:isRelatedToPlaceholder .
+         }
+	}
+    ?placeholder rdf:type/rdfs:subClassOf* RBO:Entity .
+    ?s RDO:isSubjectOfRequirement $this .
+    FILTER (?placeholder != ?s)
+    FILTER NOT EXISTS {
+        ?placeholder SAO:dependsOn+ ?s . 
+    }
+}""" ;
+  sh:order "46"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:OpaqueRequirement_rule2
+  rdf:type sh:SPARQLRule ;
+.
 RDO:Property
   rdf:type owl:Class ;
+  owl:disjointWith RBO:Boilerplate ;
+  owl:disjointWith RDO:Requirement ;
 .
 RDO:RedundantRequirement
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf RDO:Requirement ;
 .
+RDO:RedundantRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this a RDO:RedundantRequirement .
+}
+WHERE {
+    $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToTraversingConcept ?t .
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToTraversingConcept ?t .
+    FILTER (
+        (EXISTS{?a1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?a2 .})
+        ||
+        (?a1=?a2)
+    )
+    FILTER (
+        (EXISTS{?q2 (RBO:isSimilarTo|^RBO:isSimilarTo) ?q1 .})
+        ||
+        (?q2=?q1)
+    )
+}""" ;
+  sh:order "47"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:RedundantRequirement_rule2
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?this a RDO:RedundantRequirement .
+}
+WHERE {
+   $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToTraversingConcept ?t .
+    ?c1 ?pr5 ?redundant_placeholder1 .
+    ?pr5 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+    FILTER ((?pr5 != RBO:isRelatedToTraversingConcept) && (?pr5 != ?pr1) && (?pr5 != RBO:isRelatedToAction))
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToTraversingConcept ?t .
+    ?c2 ?pr5 ?redundant_placeholder2 .
+    FILTER ((?pr5 != RBO:isRelatedToTraversingConcept) && (?pr5 != ?pr2))
+    FILTER (
+        (EXISTS{?a1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?a2 .})
+        ||
+        (?a1=?a2)
+    )
+    FILTER (
+        (EXISTS{?q1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?q2 .})
+        ||
+        (?q1=?q2)
+    )
+    FILTER (
+        (EXISTS{?redundant_placeholder2 (RBO:isSimilarTo|^RBO:isSimilarTo) ?redundant_placeholder1 .})
+        ||
+        (?redundant_placeholder2 =?redundant_placeholder1)
+    )
+}""" ;
+  sh:order "48"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:RedundantRequirement_rule3
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?this a RDO:RedundantRequirement .
+}
+WHERE {
+    $this ?p1 ?c1 .
+    ?p1 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+        UNION {
+            ?c1 ?pl1 ?placeholder1 .
+            ?pl1 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder1 ?pr1 ?s  .
+            FILTER (?pr1 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder1 RBO:isRelatedToQuantifier ?q1 .}
+        }
+    } 
+    ?c1 RBO:isRelatedToAction ?a1 . 
+    ?c1 RBO:isRelatedToSystem ?t .
+    ?r2 a RDO:Requirement .
+    FILTER ($this != ?r2) 
+    ?r2 ?p2 ?c2 .
+    ?p2 rdfs:subPropertyOf* RDO:hasClause .
+    {
+        {
+            ?c2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?c2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+        UNION {
+            ?c2 ?pl2 ?placeholder2 .
+            ?pl2 rdfs:subPropertyOf* RBO:isRelatedToPlaceholder .
+            ?placeholder2 ?pr2 ?s  .
+            FILTER (?pr2 IN (RBO:isRelatedToSubject, RBO:isRelatedToStimulus))
+            OPTIONAL{?placeholder2 RBO:isRelatedToQuantifier ?q2 .}
+        }
+    } 
+    ?c2 RBO:isRelatedToAction ?a2 . 
+    ?c2 RBO:isRelatedToSystem ?t .
+    FILTER (
+        (EXISTS{?a1 (RBO:isSimilarTo|^RBO:isSimilarTo) ?a2 .})
+        ||
+        (?a1=?a2)
+    )
+    FILTER (
+        (EXISTS{?q2 (RBO:isSimilarTo|^RBO:isSimilarTo) ?q1 .})
+        ||
+        (?q2=?q1)
+    )
+}""" ;
+  sh:order "49"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
 RDO:Requirement
   rdf:type owl:Class ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:AmbiguousRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate RDO:hasAmbiguousConcept ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate RDO:hasAmbiguousConcept2 ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e1" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e1" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#IdentifiedConcept> ;
-            sp:predicate rdfs:subClassOf ;
-            sp:subject [
-                sp:varName "c1" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate rdfs:subClassOf ;
-            sp:subject [
-                sp:varName "c2" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "c2" ;
-                  ] ;
-                sp:arg2 rdfs:Class ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e2" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "e2" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e1" ;
-                  ] ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:FunctionalRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSpecifiedBy ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#Function> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:IncompleteRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object owl:Class ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:IncompleteRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#providesTo> ;
-            sp:subject [
-                sp:varName "val" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:IncompleteRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#belongsTo> ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#belongsTo> ;
-            sp:subject [
-                sp:varName "val" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:IncompleteRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "val" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#dependsOn> ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "y" ;
-                        ] ;
-                      sp:predicate RDO:hasClause ;
-                      sp:subject [
-                          sp:varName "req" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:TriplePath ;
-                      sp:object [
-                          sp:varName "val" ;
-                        ] ;
-                      sp:path [
-                          rdf:type sp:ModPath ;
-                          sp:modMax -2 ;
-                          sp:modMin 1 ;
-                          sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-                        ] ;
-                      sp:subject [
-                          sp:varName "y" ;
-                        ] ;
-                    ]
-                    [
-                      rdf:type sp:Filter ;
-                      sp:expression [
-                          rdf:type sp:ne ;
-                          sp:arg1 spin:_this ;
-                          sp:arg2 [
-                              sp:varName "req" ;
-                            ] ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "val" ;
-                  ] ;
-                sp:arg2 [
-                    sp:varName "e" ;
-                  ] ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:exists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "req" ;
-                        ] ;
-                      sp:predicate RDO:isSpecifiedBy ;
-                      sp:subject [
-                          sp:varName "e1" ;
-                        ] ;
-                    ]
-                    [
-                      sp:object [
-                          sp:varName "e1" ;
-                        ] ;
-                      sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#dependsOn> ;
-                      sp:subject [
-                          sp:varName "val" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:InconsistentRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "c1" ;
-              ] ;
-          ]
-          [
-            sp:object RDO:Requirement ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "r2" ;
-              ] ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "c2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#contradictsWith> ;
-            sp:subject [
-                sp:varName "a2" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#Quantity> ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "a1" ;
-                        ] ;
-                    ]
-                    [
-                      sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#Quantity> ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "a2" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:InconsistentRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToQuantity> ;
-            sp:subject [
-                sp:varName "c1" ;
-              ] ;
-          ]
-          [
-            sp:object RDO:Requirement ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "r2" ;
-              ] ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToQuantity> ;
-            sp:subject [
-                sp:varName "c2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#contradictsWith> ;
-            sp:subject [
-                sp:varName "q2" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:InconsistentRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "m1" ;
-              ] ;
-            sp:predicate RDO:hasMain ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToSubject> ;
-            sp:subject [
-                sp:varName "m1" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAction> ;
-            sp:subject [
-                sp:varName "m1" ;
-              ] ;
-          ]
-          [
-            sp:object RDO:Requirement ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "pr2" ;
-              ] ;
-            sp:predicate RDO:hasPrefix ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "ev" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedtoFlow> ;
-            sp:subject [
-                sp:varName "pr2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "s" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToStimulus> ;
-            sp:subject [
-                sp:varName "ev" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAction> ;
-            sp:subject [
-                sp:varName "ev" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#contradictsWith> ;
-            sp:subject [
-                sp:varName "a2" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:InterfaceRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSpecifiedBy ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#Interface> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:NoisyRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "cl" ;
-              ] ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "c" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath rdfs:subClassOf ;
-              ] ;
-            sp:subject [
-                sp:varName "cl" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "c" ;
-                        ] ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "e" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:ne ;
-                sp:arg1 [
-                    sp:varName "c" ;
-                  ] ;
-                sp:arg2 owl:Thing ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:OpaqueRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object [
-                          sp:varName "s" ;
-                        ] ;
-                      sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#dependsOn> ;
-                      sp:subject [
-                          sp:varName "e" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:RedundantRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "c1" ;
-              ] ;
-          ]
-          [
-            sp:object RDO:Requirement ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "r2" ;
-              ] ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-            sp:subject [
-                sp:varName "c2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isSimilarTo> ;
-            sp:subject [
-                sp:varName "a2" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Filter ;
-            sp:expression [
-                rdf:type sp:notExists ;
-                sp:elements (
-                    [
-                      sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#Quantity> ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "a1" ;
-                        ] ;
-                    ]
-                    [
-                      sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#Quantity> ;
-                      sp:predicate rdf:type ;
-                      sp:subject [
-                          sp:varName "a2" ;
-                        ] ;
-                    ]
-                  ) ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:RedundantRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "c1" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToQuantity> ;
-            sp:subject [
-                sp:varName "c1" ;
-              ] ;
-          ]
-          [
-            sp:object RDO:Requirement ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "c2" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject [
-                sp:varName "r2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "r2" ;
-              ] ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "s" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToQuantity> ;
-            sp:subject [
-                sp:varName "c2" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "q1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isSimilarTo> ;
-            sp:subject [
-                sp:varName "q2" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object RDO:SystemRequirement ;
-            sp:predicate rdf:type ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSpecifiedBy ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#Function> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "function" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "function" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-            sp:subject [
-                sp:varName "s1" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "m1" ;
-              ] ;
-            sp:predicate RDO:hasMain ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "s1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToSubject> ;
-            sp:subject [
-                sp:varName "m1" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#System> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "s1" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "a1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAction> ;
-            sp:subject [
-                sp:varName "m1" ;
-              ] ;
-          ]
-          [
-            sp:object [
-                sp:varName "i1" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToItem> ;
-            sp:subject [
-                sp:varName "m1" ;
-              ] ;
-          ]
-          [
-            rdf:type sp:Bind ;
-            sp:expression [
-                rdf:type sp:concat ;
-                sp:arg1 [
-                    rdf:type sp:concat ;
-                    sp:arg1 [
-                        rdf:type sp:str ;
-                        sp:arg1 [
-                            sp:varName "a1" ;
-                          ] ;
-                      ] ;
-                    sp:arg2 "_" ;
-                  ] ;
-                sp:arg2 [
-                    rdf:type sp:str ;
-                    sp:arg1 [
-                        sp:varName "i1" ;
-                      ] ;
-                  ] ;
-              ] ;
-            sp:variable [
-                sp:varName "function" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:hasRequirement ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasClause ;
-            sp:subject spin:_this ;
-          ]
-          [
-            rdf:type sp:TriplePath ;
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:path [
-                rdf:type sp:ModPath ;
-                sp:modMax -2 ;
-                sp:modMin 1 ;
-                sp:subPath <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToAttribute> ;
-              ] ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#Entity> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSpecifiedBy ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/SAO#SpecifiedConcept> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object spin:_this ;
-            sp:predicate RDO:isSubjectOfRequirement ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-      sp:where (
-          [
-            sp:object [
-                sp:varName "x" ;
-              ] ;
-            sp:predicate RDO:hasMain ;
-            sp:subject spin:_this ;
-          ]
-          [
-            sp:object [
-                sp:varName "e" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/RBO#isRelatedToSubject> ;
-            sp:subject [
-                sp:varName "x" ;
-              ] ;
-          ]
-          [
-            sp:object <http://delab.csd.auth.gr/ontologies/2018/RBO#SimpleEntity> ;
-            sp:predicate rdf:type ;
-            sp:subject [
-                sp:varName "e" ;
-              ] ;
-          ]
-        ) ;
-    ] ;
+  rdf:type sh:NodeShape ;
+  owl:disjointWith RBO:Boilerplate ;
+  owl:disjointWith RBO:Placeholder ;
+  owl:disjointWith RDO:Property ;
+  sh:order "50"^^xsd:decimal ;
+  sh:rule RDO:AmbiguousRequirement_rule1 ;
+  sh:rule RDO:Function_rule1 ;
+  sh:rule RDO:Function_rule2 ;
+  sh:rule RDO:Function_rule3 ;
+  sh:rule RDO:Function_rule4 ;
+  sh:rule RDO:Function_rule5 ;
+  sh:rule RDO:Function_rule6 ;
+  sh:rule RDO:Function_rule7 ;
+  sh:rule RDO:FunctionalRequirement_rule1 ;
+  sh:rule RDO:IncompleteRequirement_rule1 ;
+  sh:rule RDO:IncompleteRequirement_rule2a ;
+  sh:rule RDO:IncompleteRequirement_rule2b ;
+  sh:rule RDO:IncompleteRequirement_rule3a ;
+  sh:rule RDO:IncompleteRequirement_rule3b ;
+  sh:rule RDO:IncompleteRequirement_rule4 ;
+  sh:rule RDO:InconsistentRequirement_rule1 ;
+  sh:rule RDO:InconsistentRequirement_rule2 ;
+  sh:rule RDO:InconsistentRequirement_rule3 ;
+  sh:rule RDO:InterfaceRequirement_rule1 ;
+  sh:rule RDO:Interface_rule1 ;
+  sh:rule RDO:Interface_rule2 ;
+  sh:rule RDO:NoisyRequirement_rule1 ;
+  sh:rule RDO:OpaqueRequirement_rule1 ;
+  sh:rule RDO:RedundantRequirement_rule1 ;
+  sh:rule RDO:RedundantRequirement_rule2 ;
+  sh:rule RDO:RedundantRequirement_rule3 ;
+  sh:rule RDO:SystemRequirement_rule1 ;
+  sh:rule RDO:System_rule1 ;
+  sh:rule RDO:System_rule2 ;
+  sh:rule RDO:System_rule3 ;
+  sh:rule RDO:System_rule4 ;
+  sh:rule RDO:System_rule5 ;
+  sh:rule RDO:System_rule6 ;
+  sh:rule RDO:System_rule7 ;
+  sh:rule RDO:System_rule8 ;
+  sh:rule RDO:System_rule9 ;
+  sh:rule RDO:hasRequirement_rule1 ;
+  sh:rule RDO:isSpecifiedBy_rule1 ;
+  sh:rule RDO:isSubjectOfRequirement_rule1 ;
 .
 RDO:SystemRequirement
   rdf:type owl:Class ;
   rdfs:comment "A Requirement that specifies a System" ;
   rdfs:subClassOf RDO:Requirement ;
 .
-RDO:hasAbstractConcept
-  rdf:type rdf:Property ;
+RDO:SystemRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this rdf:type RDO:SystemRequirement .
+}
+WHERE {
+    ?x RDO:isSpecifiedBy $this .
+    ?x rdf:type/rdfs:subClassOf* SAO:System .
+}""" ;
+  sh:order "32"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule1
+  rdf:type sh:SPARQLRule ;
   rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?f .
+    ?f SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToFunction ?f .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M7))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "11"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule2
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?i .
+    ?i SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToInterface ?i .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M9))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "12"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule3
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?s .
+    ?s SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToSystem ?s .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M16))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "13"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule4
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?i1 ?saoProperty1 ?i2 .
+    ?i2 SAO:dependsOn ?i1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToSubjectItem ?i1 .
+    ?m1 RBO:isRelatedToTraversingConcept ?i2 .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M15))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "14"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule5
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?i1 ?saoProperty1 ?ss .
+    ?ss SAO:dependsOn ?i1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToSubjectItem ?i1 .
+    ?m1 RBO:isRelatedToStateSet ?ss .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M14))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "15"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule6
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?state ?saoProperty1 ?state2 .
+    ?state2 SAO:dependsOn ?state .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToSubjectState ?state .
+    ?m1 RBO:isRelatedToSubjectStateValue ?stateValue .
+    ?m1 RBO:isRelatedToState ?state2 .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M13))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "16"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule7
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?state2 SAO:takesValuesFrom ?stateSet .
+    ?stateSet SAO:dependsOn ?state2 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToSubjectState ?state .
+    ?m1 RBO:isRelatedToSubjectStateValue ?stateValue .
+    ?m1 RBO:isRelatedToState ?state2 .
+    ?m1 RBO:isRelatedToStateSet ?stateSet .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M13))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "17"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule8
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?s1 ?saoProperty1 ?state .
+    ?state SAO:dependsOn ?s1 .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToState ?state .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M12))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "18"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+RDO:System_rule9
+  rdf:type sh:SPARQLRule ;
+  rdfs:comment "" ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?state SAO:takesValuesFrom ?stateSet .
+    ?stateSet SAO:dependsOn ?state .
+}
+WHERE {
+    $this RDO:hasMain ?m1 .
+    ?m1 RBO:isRelatedToSubject ?s1 .
+    ?s1 rdf:type/rdfs:subClassOf* SAO:System .
+    ?m1 RBO:isRelatedToAction ?a1 .
+    ?m1 RBO:isRelatedToState ?state .
+    ?m1 RBO:isRelatedToStateSet ?stateSet .
+    ?m1 rdf:type ?type . 
+    FILTER (?type IN (RBO:M12))
+    ?a1 rdf:type ?t1 .
+    ?t1 RDO:isRelatedToSAOProperty1+ ?saoProperty1 .
+}""" ;
+  sh:order "19"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
 .
 RDO:hasAmbiguousConcept
-  rdf:type rdf:Property ;
-  rdfs:comment "" ;
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "One of the placeholder in the requirement is instance of that ambiguous concept class. However an instance of a subclass of this class exists, which could be used intead of that placeholder. Follow hasAmbiguousConcept2 relation to find such an instance." ;
 .
 RDO:hasAmbiguousConcept2
-  rdf:type rdf:Property ;
-  rdfs:comment "" ;
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Use an instance of that ambigous concept class as a placeholder in the requirement." ;
 .
 RDO:hasClause
   rdf:type owl:ObjectProperty ;
-  rdfs:domain RDO:Requirement ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/RBO#ReqDescriptor> ;
+  rdfs:range RBO:Boilerplate ;
 .
 RDO:hasMain
   rdf:type owl:ObjectProperty ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/RBO#Main> ;
+  rdfs:domain RDO:Requirement ;
+  rdfs:range RBO:Main ;
   rdfs:subPropertyOf RDO:hasClause ;
+.
+RDO:hasNoisyConcept
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Specifies which placeholder is not defined under a domain ontology class. Move that placeholder under the correct domain ontology class or replace it with the correct instance, existing in the domain ontology." ;
+.
+RDO:hasOpaqueConcept
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "Specifies which placeholder is not related to the subject of the requirement. Replace that placeholder (or the subject) with the correct instance." ;
 .
 RDO:hasPrefix
   rdf:type owl:ObjectProperty ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/RBO#Prefix> ;
+  rdfs:domain RDO:Requirement ;
+  rdfs:range RBO:Prefix ;
   rdfs:subPropertyOf RDO:hasClause ;
 .
 RDO:hasProperty
   rdf:type owl:ObjectProperty ;
-  rdfs:domain <http://delab.csd.auth.gr/ontologies/2018/SAO#SpecifiedConcept> ;
+  rdfs:domain SAO:SpecifiedConcept ;
   rdfs:range RDO:Property ;
 .
 RDO:hasRequirement
   rdf:type owl:ObjectProperty ;
-  rdfs:domain <http://delab.csd.auth.gr/ontologies/2018/RBO#Entity> ;
+  rdfs:domain RBO:Entity ;
   rdfs:range RDO:Requirement ;
+.
+RDO:hasRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?e RDO:hasRequirement $this .
+}
+WHERE {
+    $this RDO:hasClause+ ?x .
+    ?x (RBO:isRelatedToPlaceholder)+ ?e .
+    ?e rdf:type/rdfs:subClassOf* RBO:Entity .
+}""" ;
+  sh:order "31"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
 .
 RDO:hasSuffix
   rdf:type owl:ObjectProperty ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/RBO#Suffix> ;
+  rdfs:domain RDO:Requirement ;
+  rdfs:range RBO:Suffix ;
   rdfs:subPropertyOf RDO:hasClause ;
 .
-RDO:isClauseOf
+RDO:isInconsistentTo
   rdf:type owl:ObjectProperty ;
-  rdfs:domain <http://delab.csd.auth.gr/ontologies/2018/RBO#ReqDescriptor> ;
+  rdfs:comment "Specifies which requirements a contradicting, thus declared as inconsistent." ;
+  rdfs:domain RDO:InconsistentRequirement ;
   rdfs:range RDO:Requirement ;
-  owl:inverseOf RDO:hasClause ;
+.
+RDO:isInferenced
+  rdf:type owl:DatatypeProperty ;
+  rdfs:comment "Specifies which instance is inferenced" ;
+  rdfs:range xsd:boolean ;
+.
+RDO:isMissing
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "" ;
+  rdfs:domain RDO:IncompleteRequirement ;
 .
 RDO:isMissingConcept
-  rdf:type rdf:Property ;
-  rdfs:comment "" ;
-.
-RDO:isPropertyOf
   rdf:type owl:ObjectProperty ;
-  rdfs:domain RDO:Property ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/SAO#SpecifiedConcept> ;
-  owl:inverseOf RDO:hasProperty ;
+  rdfs:comment "The instance is only used once (or never) in the requirement list. Add one more requirement with the missing concept as placeholder." ;
+  rdfs:range SAO:IdentifiedConcept ;
+  rdfs:subPropertyOf RDO:isMissing ;
 .
-RDO:isReplacedBy
+RDO:isMissingInstanceOf
   rdf:type owl:ObjectProperty ;
-  rdfs:domain RDO:Requirement ;
-  rdfs:range RDO:Requirement ;
-  owl:inverseOf RDO:replaces ;
+  rdfs:comment "A class is used instead of an instance." ;
+  rdfs:range owl:Class ;
+  rdfs:subPropertyOf RDO:isMissing ;
 .
-RDO:isRequirementOf
+RDO:isMissingProducer
   rdf:type owl:ObjectProperty ;
-  rdfs:domain RDO:Requirement ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/SAO#SpecifiedConcept> ;
-  owl:inverseOf RDO:hasRequirement ;
+  rdfs:comment "The instance is not used in the requirement list, although it affects one or more placeholders in the requirement. Add requirement (or update an existing) with the missing producer as placeholder." ;
+  rdfs:range SAO:IdentifiedConcept ;
+  rdfs:subPropertyOf RDO:isMissing ;
+.
+RDO:isMissingState
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "The instance is not used in the requirement list, although it belongs to the same stateset with one of placeholders in the requirement. Add requirement (or update an existing) with the missing state as placeholder." ;
+  rdfs:range SAO:IdentifiedConcept ;
+  rdfs:subPropertyOf RDO:isMissing ;
+.
+RDO:isRelatedToSAOProperty1
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain LO:Action ;
+  rdfs:range owl:ObjectProperty ;
+.
+RDO:isRelatedToSAOProperty2
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain LO:Action ;
+  rdfs:range owl:ObjectProperty ;
 .
 RDO:isSpecifiedBy
   rdf:type owl:ObjectProperty ;
-  rdfs:range <http://delab.csd.auth.gr/ontologies/2018/SAO#SpecifiedConcept> ;
-  rdfs:subPropertyOf RDO:isSubjectOfRequirement ;
+  rdfs:domain [
+      rdf:type owl:Class ;
+      owl:unionOf (
+          RBO:Function
+          RBO:System
+          RBO:Interface
+        ) ;
+    ] ;
+  rdfs:range RDO:Requirement ;
+.
+RDO:isSpecifiedBy_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+CONSTRUCT {
+    ?e RDO:isSpecifiedBy $this .
+}
+WHERE {
+    $this RDO:hasMain ?x .
+    ?x RBO:isRelatedToSubject ?e .
+    ?e a ?class .
+    {
+    {FILTER (?class IN (RBO:Function, RBO:System, RBO:Interface))}
+    UNION
+    {
+    ?class rdfs:subClassOf* ?parentClass .
+    FILTER (?parentClass IN (RBO:Function, RBO:System, RBO:Interface))}}
+}""" ;
+  sh:order "29"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes SAO: ;
+  sh:prefixes rdfs: ;
 .
 RDO:isSubjectOfRequirement
   rdf:type owl:ObjectProperty ;
-  rdfs:domain <http://delab.csd.auth.gr/ontologies/2018/RBO#SimpleEntity> ;
+  rdfs:domain RBO:SimpleEntity ;
+  rdfs:range RDO:Requirement ;
   rdfs:subPropertyOf RDO:hasRequirement ;
+  owl:inverseOf RBO:isRelatedToSubject ;
+.
+RDO:isSubjectOfRequirement_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX RDO:<http://delab.csd.auth.gr/ontologies/2018/RDO#>
+PREFIX RBO:<http://delab.csd.auth.gr/ontologies/2018/RBO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    ?e RDO:isSubjectOfRequirement $this .
+}
+WHERE {
+    $this RDO:hasMain ?x .
+    ?x RBO:isRelatedToSubject ?e.
+    ?e rdf:type/rdfs:subClassOf* RBO:SimpleEntity .
+}""" ;
+  sh:order "30"^^xsd:decimal ;
+  sh:prefixes RBO: ;
+  sh:prefixes RDO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
 .
 RDO:replaces
   rdf:type owl:ObjectProperty ;
   rdfs:domain RDO:Requirement ;
   rdfs:range RDO:Requirement ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#Connection>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#Connection> ;
+SAO:Connection
+  rdfs:subClassOf RBO:Connection ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#Flow>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#Flow> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#Flow> ;
+SAO:Flow
+  rdfs:subClassOf RBO:Flow ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#Function>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#Function> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#Function> ;
+SAO:Function
+  rdfs:subClassOf RBO:Function ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#Interface>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#Interface> ;
+SAO:Interface
+  rdfs:subClassOf RBO:Interface ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#Item>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#Item> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#Item> ;
+SAO:Item
+  rdfs:subClassOf RBO:Item ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#State>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#State> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#State> ;
+SAO:State
+  rdfs:subClassOf RBO:State ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#StateSet>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#StateSet> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#StateSet> ;
+SAO:StateSet
+  rdfs:subClassOf RBO:StateSet ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#StateValue>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#StateValue> ;
+SAO:StateValue
+  rdfs:subClassOf RBO:StateValue ;
 .
-<http://delab.csd.auth.gr/ontologies/2018/SAO#System>
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RBO#System> ;
-  rdfs:subClassOf <http://delab.csd.auth.gr/ontologies/2018/RMO#System> ;
+SAO:System
+  rdfs:subClassOf RBO:System ;
 .
-owl:Thing
-  spin:rule [
-      rdf:type sp:Construct ;
-      sp:templates (
-          [
-            sp:object [
-                sp:varName "e2" ;
-              ] ;
-            sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#isRelatedTo> ;
-            sp:subject spin:_this ;
-          ]
-        ) ;
-      sp:where (
-          [
-            rdf:type sp:Union ;
-            sp:elements (
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#receives> ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#sends> ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#traverses> ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "s1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "s2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#ingests> ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "val1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#emits> ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#traverses> ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object spin:_this ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "e2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "s1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "s2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "f1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "f2" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#traverses> ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#ingests> ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#emits> ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:ne ;
-                        sp:arg1 spin:_this ;
-                        sp:arg2 [
-                            sp:varName "e2" ;
-                          ] ;
-                      ] ;
-                  ]
-                )
-                (
-                  [
-                    sp:object [
-                        sp:varName "f1" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                    sp:subject spin:_this ;
-                  ]
-                  [
-                    sp:object [
-                        sp:varName "f2" ;
-                      ] ;
-                    sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                    sp:subject [
-                        sp:varName "e2" ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:exists ;
-                        sp:elements (
-                            [
-                              sp:object [
-                                  sp:varName "connection" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#traverses> ;
-                              sp:subject [
-                                  sp:varName "val1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#receives> ;
-                              sp:subject [
-                                  sp:varName "f1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface1" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "f2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#performs> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#sends> ;
-                              sp:subject [
-                                  sp:varName "f2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#presents> ;
-                              sp:subject [
-                                  sp:varName "s2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "val1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#transfers> ;
-                              sp:subject [
-                                  sp:varName "interface2" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface1" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              sp:object [
-                                  sp:varName "interface2" ;
-                                ] ;
-                              sp:predicate <http://delab.csd.auth.gr/ontologies/2018/SAO#joins> ;
-                              sp:subject [
-                                  sp:varName "connection" ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "interface1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "interface2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                            [
-                              rdf:type sp:Filter ;
-                              sp:expression [
-                                  rdf:type sp:ne ;
-                                  sp:arg1 [
-                                      sp:varName "f1" ;
-                                    ] ;
-                                  sp:arg2 [
-                                      sp:varName "f2" ;
-                                    ] ;
-                                ] ;
-                            ]
-                          ) ;
-                      ] ;
-                  ]
-                  [
-                    rdf:type sp:Filter ;
-                    sp:expression [
-                        rdf:type sp:ne ;
-                        sp:arg1 spin:_this ;
-                        sp:arg2 [
-                            sp:varName "e2" ;
-                          ] ;
-                      ] ;
-                  ]
-                )
-              ) ;
-          ]
-        ) ;
-    ] ;
-.
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:ModPath ;
+].
+[
+  rdf:type sp:concat ;
+].
+[
+  rdf:type sp:concat ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:exists ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:ne ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:notExists ;
+].
+[
+  rdf:type sp:str ;
+].
+[
+  rdf:type sp:str ;
+].
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+).
+(
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  []
+  []
+  [
+    rdf:type sp:Bind ;
+  ]
+).
+(
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  []
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  []
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  []
+  [
+    rdf:type sp:TriplePath ;
+  ]
+  [
+    rdf:type sp:Filter ;
+  ]
+).
+(
+  [
+    rdf:type sp:Union ;
+  ]
+).
+(
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+  (
+    []
+    []
+    [
+      rdf:type sp:Filter ;
+    ]
+    [
+      rdf:type sp:Filter ;
+    ]
+  )
+).

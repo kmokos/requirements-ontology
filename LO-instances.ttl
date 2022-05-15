@@ -1,0 +1,325 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/LO-instances
+# imports: http://datashapes.org/dash
+# imports: http://delab.csd.auth.gr/ontologies/2018/LO
+# prefix: LO-instances
+
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/LO-instances#> .
+@prefix LO: <http://delab.csd.auth.gr/ontologies/2018/LO#> .
+@prefix LO-instances: <http://delab.csd.auth.gr/ontologies/2018/LO-instances#> .
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://delab.csd.auth.gr/ontologies/2018/LO-instances>
+  rdf:type owl:Ontology ;
+  owl:imports <http://datashapes.org/dash> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/LO> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+LO-instances:BeComposedFrom
+  rdf:type LO:BeComposedFrom ;
+  LO:synonymOf LO-instances:BeDecomposedTo ;
+.
+LO-instances:BeDecomposedTo
+  rdf:type LO:BeComposedFrom ;
+.
+LO-instances:HaveState
+  rdf:type LO:HaveState ;
+.
+LO-instances:HaveSubState
+  rdf:type LO:HaveSubState ;
+.
+LO-instances:Hz
+  rdf:type LO:TimeUnit ;
+.
+LO-instances:Interact
+  rdf:type LO:Interact ;
+.
+LO-instances:TakeValuesFrom
+  rdf:type LO:TakeValuesFrom ;
+.
+LO-instances:accept
+  rdf:type LO:Receive ;
+  LO:synonymOf LO-instances:receive ;
+  rdfs:comment "" ;
+.
+LO-instances:acquire
+  rdf:type LO:Receive ;
+  LO:synonymOf LO-instances:receive ;
+  rdfs:comment "" ;
+.
+LO-instances:after
+  rdf:type LO:EventRelated ;
+  LO:antonymOf LO-instances:before ;
+.
+LO-instances:all
+  rdf:type LO:NonNumericalAffirmative ;
+  LO:antonymOf LO-instances:only ;
+  rdfs:comment "" ;
+.
+LO-instances:at_even_intervals
+  rdf:type LO:TimeSpaceRelated ;
+.
+LO-instances:at_least
+  rdf:type LO:ClosedInterval ;
+  LO:antonymOf LO-instances:at_most ;
+  rdfs:comment "more than or equal to (>=)" ;
+.
+LO-instances:at_most
+  rdf:type LO:ClosedInterval ;
+  rdfs:comment "less than or equal to (<=)" ;
+.
+LO-instances:at_the_beggining
+  rdf:type LO:TimeFrameRelated ;
+  LO:antonymOf LO-instances:at_the_end ;
+.
+LO-instances:at_the_end
+  rdf:type LO:TimeFrameRelated ;
+.
+LO-instances:before
+  rdf:type LO:EventRelated ;
+.
+LO-instances:broadcast
+  rdf:type LO:Transfer ;
+  LO:synonymOf LO-instances:transmit ;
+  rdfs:comment "" ;
+.
+LO-instances:calculateFrom
+  rdf:type LO:Receive ;
+  LO:synonymOf LO-instances:acquire ;
+  LO:synonymOf LO-instances:receive ;
+.
+LO-instances:call
+  rdf:type LO:Invoke ;
+  LO:synonymOf LO-instances:invoke ;
+  rdfs:comment "" ;
+.
+LO-instances:change
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:update ;
+  rdfs:comment "" ;
+.
+LO-instances:compute
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:set ;
+  rdfs:comment "" ;
+.
+LO-instances:concurrently
+  rdf:type LO:ExecutionRelated ;
+.
+LO-instances:contain
+  rdf:type LO:Contain ;
+  rdfs:comment "" ;
+.
+LO-instances:emit
+  rdf:type LO:Emit ;
+  LO:antonymOf LO-instances:ingest ;
+  rdfs:comment "" ;
+.
+LO-instances:every
+  rdf:type LO:TimeRangeRelated ;
+  LO:antonymOf LO-instances:for_a_period_of ;
+  LO:antonymOf LO-instances:for_at_least ;
+  LO:antonymOf LO-instances:for_at_most ;
+  LO:antonymOf LO-instances:within ;
+.
+LO-instances:exactly
+  rdf:type LO:NumericalAffirmative ;
+  LO:antonymOf LO-instances:less_than ;
+  LO:antonymOf LO-instances:more_than ;
+  rdfs:comment "equal to (=)" ;
+.
+LO-instances:execute
+  rdf:type LO:Perform ;
+  LO:synonymOf LO-instances:perform ;
+  rdfs:comment "" ;
+.
+LO-instances:for_a_period_of
+  rdf:type LO:TimeRangeRelated ;
+  LO:antonymOf LO-instances:for_at_least ;
+  LO:antonymOf LO-instances:for_at_most ;
+  LO:antonymOf LO-instances:within ;
+.
+LO-instances:for_at_least
+  rdf:type LO:TimeRangeRelated ;
+  LO:antonymOf LO-instances:for_at_most ;
+  LO:antonymOf LO-instances:within ;
+.
+LO-instances:for_at_most
+  rdf:type LO:TimeRangeRelated ;
+  LO:antonymOf LO-instances:within ;
+.
+LO-instances:forward
+  rdf:type LO:Send ;
+  LO:synonymOf LO-instances:send ;
+  rdfs:comment "" ;
+.
+LO-instances:generate
+  rdf:type LO:Emit ;
+  LO:synonymOf LO-instances:produce ;
+  rdfs:comment "" ;
+.
+LO-instances:get
+  rdf:type LO:Ingest ;
+  LO:synonymOf LO-instances:ingest ;
+  rdfs:comment "" ;
+.
+LO-instances:hour
+  rdf:type LO:TimeUnit ;
+  LO:equivalentToUOM LO-instances:minute ;
+  LO:equivalentWithDenominator "1"^^xsd:float ;
+  LO:equivalentWithNumerator "60"^^xsd:float ;
+.
+LO-instances:identify
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:initiate ;
+  LO:synonymOf LO-instances:set ;
+.
+LO-instances:include
+  rdf:type LO:Contain ;
+  LO:synonymOf LO-instances:contain ;
+  rdfs:comment "" ;
+.
+LO-instances:ingest
+  rdf:type LO:Ingest ;
+  rdfs:comment "" ;
+.
+LO-instances:initiate
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:set ;
+  rdfs:comment "" ;
+.
+LO-instances:invoke
+  rdf:type LO:Invoke ;
+  rdfs:comment "" ;
+.
+LO-instances:kilometer
+  rdf:type LO:NonTimeUnit ;
+  LO:equivalentToUOM LO-instances:meter ;
+  LO:equivalentWithDenominator "1"^^xsd:float ;
+  LO:equivalentWithNumerator "1000"^^xsd:float ;
+.
+LO-instances:less_than
+  rdf:type LO:NumericalAffirmative ;
+  rdfs:comment "(<)" ;
+.
+LO-instances:measure
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:set ;
+  rdfs:comment "" ;
+.
+LO-instances:meter
+  rdf:type LO:NonTimeUnit ;
+.
+LO-instances:millisecond
+  rdf:type LO:TimeUnit ;
+.
+LO-instances:minute
+  rdf:type LO:TimeUnit ;
+  LO:equivalentToUOM LO-instances:second ;
+  LO:equivalentWithDenominator "1"^^xsd:float ;
+  LO:equivalentWithNumerator "60"^^xsd:float ;
+.
+LO-instances:more_than
+  rdf:type LO:NumericalAffirmative ;
+  LO:antonymOf LO-instances:less_than ;
+  rdfs:comment "(>)" ;
+.
+LO-instances:no
+  rdf:type LO:Negative ;
+  LO:synonymOf LO-instances:none ;
+  rdfs:comment "" ;
+.
+LO-instances:none
+  rdf:type LO:Negative ;
+  LO:antonymOf LO-instances:all ;
+  LO:antonymOf LO-instances:at_least ;
+  LO:antonymOf LO-instances:at_most ;
+  LO:antonymOf LO-instances:exactly ;
+  LO:antonymOf LO-instances:less_than ;
+  LO:antonymOf LO-instances:more_than ;
+  LO:antonymOf LO-instances:only ;
+  rdfs:comment "" ;
+.
+LO-instances:only
+  rdf:type LO:NonNumericalAffirmative ;
+  rdfs:comment "" ;
+.
+LO-instances:perform
+  rdf:type LO:Perform ;
+  rdfs:comment "" ;
+.
+LO-instances:present
+  rdf:type LO:Present ;
+  rdfs:comment "" ;
+.
+LO-instances:produce
+  rdf:type LO:Emit ;
+  LO:synonymOf LO-instances:emit ;
+  rdfs:comment "" ;
+.
+LO-instances:provide
+  rdf:type LO:Present ;
+  LO:synonymOf LO-instances:present ;
+  rdfs:comment "" ;
+.
+LO-instances:receive
+  rdf:type LO:Receive ;
+  rdfs:comment "" ;
+.
+LO-instances:request
+  rdf:type LO:Invoke ;
+  LO:synonymOf LO-instances:invoke ;
+  rdfs:comment "" ;
+.
+LO-instances:reset
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:set ;
+  rdfs:comment "" ;
+.
+LO-instances:second
+  rdf:type LO:TimeUnit ;
+  LO:equivalentToUOM LO-instances:millisecond ;
+  LO:equivalentWithDenominator "1"^^xsd:float ;
+  LO:equivalentWithNumerator "1000"^^xsd:float ;
+.
+LO-instances:send
+  rdf:type LO:Send ;
+  LO:antonymOf LO-instances:receive ;
+  rdfs:comment "" ;
+.
+LO-instances:sequentially
+  rdf:type LO:ExecutionRelated ;
+  LO:antonymOf LO-instances:concurrently ;
+.
+LO-instances:set
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:send ;
+  rdfs:comment "" ;
+.
+LO-instances:transfer
+  rdf:type LO:Transfer ;
+  rdfs:comment "" ;
+.
+LO-instances:transmit
+  rdf:type LO:Transfer ;
+  LO:synonymOf LO-instances:transfer ;
+  rdfs:comment "" ;
+.
+LO-instances:update
+  rdf:type LO:Set ;
+  LO:synonymOf LO-instances:set ;
+  rdfs:comment "" ;
+.
+LO-instances:volt
+  rdf:type LO:NonTimeUnit ;
+.
+LO-instances:within
+  rdf:type LO:TimeRangeRelated ;
+.

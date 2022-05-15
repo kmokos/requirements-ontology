@@ -1,0 +1,33 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/RDO-instances
+# imports: http://datashapes.org/dash
+# imports: http://delab.csd.auth.gr/ontologies/2018/DSO-instances
+# imports: http://delab.csd.auth.gr/ontologies/2018/LO-instances
+# imports: http://delab.csd.auth.gr/ontologies/2018/RBO
+# imports: http://delab.csd.auth.gr/ontologies/2018/RDO
+# prefix: RDO-instances
+
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/RDO-instances#> .
+@prefix DSO: <http://delab.csd.auth.gr/ontologies/2018/DSO#> .
+@prefix DSO-instances: <http://delab.csd.auth.gr/ontologies/2018/DSO-instances#> .
+@prefix EAO: <http://delab.csd.auth.gr/ontologies/2018/EAO#> .
+@prefix LO-instances: <http://delab.csd.auth.gr/ontologies/2018/LO-instances#> .
+@prefix RBO: <http://delab.csd.auth.gr/ontologies/2018/RBO#> .
+@prefix RDO: <http://delab.csd.auth.gr/ontologies/2018/RDO#> .
+@prefix RDO-instances: <http://delab.csd.auth.gr/ontologies/2018/RDO-instances#> .
+@prefix SAO: <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://delab.csd.auth.gr/ontologies/2018/RDO-instances>
+  rdf:type owl:Ontology ;
+  owl:imports <http://datashapes.org/dash> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/DSO-instances> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/LO-instances> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/RBO> ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/RDO> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.

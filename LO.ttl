@@ -1,42 +1,42 @@
 # baseURI: http://delab.csd.auth.gr/ontologies/2018/LO
-# imports: http://spinrdf.org/spl
+# imports: http://datashapes.org/dash
 # prefix: LO
 
 @prefix : <http://delab.csd.auth.gr/ontologies/2018/LO#> .
 @prefix LO: <http://delab.csd.auth.gr/ontologies/2018/LO#> .
 @prefix arg: <http://spinrdf.org/arg#> .
+@prefix dash: <http://datashapes.org/dash#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix sp: <http://spinrdf.org/sp#> .
 @prefix spin: <http://spinrdf.org/spin#> .
 @prefix spl: <http://spinrdf.org/spl#> .
+@prefix swa: <http://topbraid.org/swa#> .
+@prefix tosh: <http://topbraid.org/tosh#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <http://delab.csd.auth.gr/ontologies/2018/LO>
   rdf:type owl:Ontology ;
-  owl:imports <http://spinrdf.org/spl> ;
+  owl:imports <http://datashapes.org/dash> ;
   owl:versionInfo "Created with TopBraid Composer" ;
 .
-LO:Adjective
+LO:Action
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf LO:LexicalConcept ;
-  owl:disjointWith LO:Adverb ;
-  owl:disjointWith LO:Noun ;
-  owl:disjointWith LO:Verb ;
+  owl:disjointWith LO:Preposition ;
+  owl:disjointWith LO:Quantifier ;
+  owl:disjointWith LO:UOM ;
 .
-LO:Adverb
+LO:Affirmative
   rdf:type owl:Class ;
-  rdfs:comment "" ;
-  rdfs:subClassOf LO:LexicalConcept ;
-  owl:disjointWith LO:Adjective ;
-  owl:disjointWith LO:Noun ;
-  owl:disjointWith LO:Verb ;
+  rdfs:subClassOf LO:Quantifier ;
 .
 LO:BeComposedFrom
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
   owl:disjointWith LO:HaveState ;
@@ -52,9 +52,13 @@ LO:BeComposedFrom
   owl:disjointWith LO:TakeValuesFrom ;
   owl:disjointWith LO:Transfer ;
 .
+LO:ClosedInterval
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Quantifier ;
+.
 LO:Contain
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Emit ;
   owl:disjointWith LO:HaveState ;
@@ -72,7 +76,7 @@ LO:Contain
 .
 LO:Emit
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:HaveState ;
@@ -88,9 +92,17 @@ LO:Emit
   owl:disjointWith LO:TakeValuesFrom ;
   owl:disjointWith LO:Transfer ;
 .
+LO:EventRelated
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Preposition ;
+.
+LO:ExecutionRelated
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Preposition ;
+.
 LO:HaveState
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -108,7 +120,7 @@ LO:HaveState
 .
 LO:HaveSubState
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -126,7 +138,7 @@ LO:HaveSubState
 .
 LO:Ingest
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -144,7 +156,7 @@ LO:Ingest
 .
 LO:Interact
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -162,7 +174,7 @@ LO:Interact
 .
 LO:Invoke
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -180,20 +192,37 @@ LO:Invoke
 .
 LO:LexicalConcept
   rdf:type owl:Class ;
-  rdfs:comment "A LexicalConcept represents concepts that can be lexicalized by an adjective, adverb, noun or verb." ;
+  rdfs:comment "A LexicalConcept represents concepts that can be lexicalized by an Action, Preposition, Quantifier or UOM." ;
   rdfs:subClassOf owl:Thing ;
+  sh:rule LO:antonymOf_rule1 ;
 .
-LO:Noun
+LO:LogicalOperators
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf LO:LexicalConcept ;
-  owl:disjointWith LO:Adjective ;
-  owl:disjointWith LO:Adverb ;
-  owl:disjointWith LO:Verb ;
+  owl:disjointWith LO:Preposition ;
+  owl:disjointWith LO:Quantifier ;
+  owl:disjointWith LO:UOM ;
+.
+LO:Negative
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Quantifier ;
+.
+LO:NonNumericalAffirmative
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Affirmative ;
+.
+LO:NonTimeUnit
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:UOM ;
+.
+LO:NumericalAffirmative
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Affirmative ;
 .
 LO:Perform
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -209,9 +238,16 @@ LO:Perform
   owl:disjointWith LO:TakeValuesFrom ;
   owl:disjointWith LO:Transfer ;
 .
+LO:Preposition
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Action ;
+  owl:disjointWith LO:Quantifier ;
+  owl:disjointWith LO:UOM ;
+.
 LO:Present
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -227,9 +263,17 @@ LO:Present
   owl:disjointWith LO:TakeValuesFrom ;
   owl:disjointWith LO:Transfer ;
 .
+LO:Quantifier
+  rdf:type owl:Class ;
+  rdfs:comment "" ;
+  rdfs:subClassOf LO:LexicalConcept ;
+  owl:disjointWith LO:Action ;
+  owl:disjointWith LO:Preposition ;
+  owl:disjointWith LO:UOM ;
+.
 LO:Receive
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -247,7 +291,7 @@ LO:Receive
 .
 LO:Send
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -265,7 +309,7 @@ LO:Send
 .
 LO:Set
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -283,7 +327,7 @@ LO:Set
 .
 LO:TakeValuesFrom
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -299,9 +343,25 @@ LO:TakeValuesFrom
   owl:disjointWith LO:Set ;
   owl:disjointWith LO:Transfer ;
 .
+LO:TimeFrameRelated
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Preposition ;
+.
+LO:TimeRangeRelated
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Preposition ;
+.
+LO:TimeSpaceRelated
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:Preposition ;
+.
+LO:TimeUnit
+  rdf:type owl:Class ;
+  rdfs:subClassOf LO:UOM ;
+.
 LO:Transfer
   rdf:type owl:Class ;
-  rdfs:subClassOf LO:Verb ;
+  rdfs:subClassOf LO:Action ;
   owl:disjointWith LO:BeComposedFrom ;
   owl:disjointWith LO:Contain ;
   owl:disjointWith LO:Emit ;
@@ -317,23 +377,189 @@ LO:Transfer
   owl:disjointWith LO:Set ;
   owl:disjointWith LO:TakeValuesFrom ;
 .
-LO:Verb
+LO:UOM
   rdf:type owl:Class ;
   rdfs:comment "" ;
   rdfs:subClassOf LO:LexicalConcept ;
-  owl:disjointWith LO:Adjective ;
-  owl:disjointWith LO:Adverb ;
-  owl:disjointWith LO:Noun ;
+  owl:disjointWith LO:Action ;
+  owl:disjointWith LO:Preposition ;
+  owl:disjointWith LO:Quantifier ;
 .
 LO:antonymOf
   rdf:type owl:SymmetricProperty ;
   rdfs:comment "A concept opposite in meaning to another" ;
   rdfs:domain LO:LexicalConcept ;
   rdfs:range LO:LexicalConcept ;
+  rdfs:subPropertyOf LO:hasMeaning ;
+.
+LO:antonymOf_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX LO:<http://delab.csd.auth.gr/ontologies/2018/LO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this LO:antonymOf ?antonym .
+}
+WHERE {
+    $this (LO:synonymOf|^LO:synonymOf)* ?synonym.
+    $this rdf:type/rdfs:subClassOf* LO:LexicalConcept .
+    FILTER($this != ?synonym)
+    {
+       {?synonym LO:antonymOf ?antonym .}
+       UNION
+       {?antonym LO:antonymOf ?synonym .}
+    }
+    NOT EXISTS {
+        $this LO:antonymOf ?antonym.
+    }
+}""" ;
+  sh:order "1"^^xsd:decimal ;
+  sh:prefixes LO: ;
+  sh:prefixes rdf: ;
+  sh:prefixes rdfs: ;
+.
+LO:equivalentToUOM
+  rdf:type owl:TransitiveProperty ;
+  rdfs:comment "equivalence to unit of measurement" ;
+  rdfs:domain LO:UOM ;
+  rdfs:range LO:UOM ;
+  rdfs:subPropertyOf LO:hasEquivalent ;
+.
+LO:equivalentWithDenominator
+  rdf:type owl:TransitiveProperty ;
+  rdfs:comment "equivalence to number" ;
+  rdfs:domain LO:UOM ;
+  rdfs:range xsd:float ;
+  rdfs:subPropertyOf LO:hasEquivalent ;
+.
+LO:equivalentWithNumerator
+  rdf:type owl:TransitiveProperty ;
+  rdfs:comment "equivalence to number" ;
+  rdfs:domain LO:UOM ;
+  rdfs:range xsd:float ;
+  rdfs:subPropertyOf LO:hasEquivalent ;
+.
+LO:hasEquivalent
+  rdf:type owl:ObjectProperty ;
+  rdfs:comment "A concept that means exactly or nearly the same as another" ;
+  rdfs:range LO:LexicalConcept ;
+.
+LO:hasMeaning
+  rdf:type owl:ObjectProperty ;
+  rdfs:range LO:LexicalConcept ;
+.
+LO:hasMeaning_rule1
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX LO:<http://delab.csd.auth.gr/ontologies/2018/LO#>
+PREFIX rdfs:<http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+CONSTRUCT {
+    $this LO:antonymOf ?e2 .
+}
+WHERE {
+    $this ?pr ?val1 .
+    $this rdf:type/rdfs:subClassOf* LO:LexicalConcept .
+    ?pr rdfs:subPropertyOf* LO:hasMeaning .
+    ?e2 rdf:type/rdfs:subClassOf* LO:LexicalConcept .
+    FILTER ($this != ?e2) .
+    NOT EXISTS {
+            $this (LO:synonymOf|^LO:synonymOf)+ ?e2 .
+    }
+    NOT EXISTS {
+            $this LO:antonymOf ?e2 .
+    }
+    ?e2 ?pr ?val2 .
+    EXISTS {
+        {
+            ?val1 LO:antonymOf ?val2
+        }
+        UNION 
+        {
+            FILTER (?val1 != ?val2)
+        }
+    }
+    NOT EXISTS {
+        $this ?prop ?val .
+        ?prop rdfs:subPropertyOf* LO:hasMeaning .
+        FILTER (?prop != ?pr) .
+        NOT EXISTS {
+            {
+                ?e2 ?prop ?val .
+            }
+            UNION
+            {
+                ?e2 ?prop ?val3 .
+                EXISTS {
+                    {
+                        ?val3 LO:synonymOf ?val
+                    }
+                    UNION
+                    {
+                        FILTER (?val3 = ?val)
+                    }
+                }
+            }
+            UNION
+            {
+                ?e2 ?prop ?val3 .
+                EXISTS {
+                    {
+                        ?val3 LO:antonymOf ?val
+                    }
+                    UNION
+                    {
+                        FILTER (?val3 != ?val)
+                    }
+                }
+            } .
+        } .
+    } .
+    NOT EXISTS {
+        ?e2 ?prop ?val .
+        ?prop rdfs:subPropertyOf* LO:hasMeaning .
+        FILTER (?prop != ?pr) .
+        NOT EXISTS {
+            {
+                $this ?prop ?val .
+            }
+            UNION
+            {
+                $this ?prop ?val3 .
+                EXISTS {
+                    {
+                        ?val3 LO:synonymOf ?val
+                    }
+                    UNION
+                    {
+                        FILTER (?val3 = ?val)
+                    }
+                }
+            }
+            UNION
+            {
+                $this ?prop ?val3 .
+                EXISTS {
+                    {
+                        ?val3 LO:antonymOf ?val
+                    }
+                    UNION
+                    {
+                        FILTER (?val3 != ?val)
+                    }
+                }
+            } .
+        } .
+    } .
+}""" ;
+  sh:prefixes <http://delab.csd.auth.gr/ontologies/2018/LO> ;
+  sh:prefixes <http://www.w3.org/1999/02/22-rdf-syntax-ns> ;
+  sh:prefixes <http://www.w3.org/2000/01/rdf-schema> ;
 .
 LO:synonymOf
+  rdf:type owl:SymmetricProperty ;
   rdf:type owl:TransitiveProperty ;
   rdfs:comment "A concept that means exactly or nearly the same as another" ;
   rdfs:domain LO:LexicalConcept ;
   rdfs:range LO:LexicalConcept ;
+  rdfs:subPropertyOf LO:hasMeaning ;
 .

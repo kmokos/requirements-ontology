@@ -1,0 +1,255 @@
+# baseURI: http://delab.csd.auth.gr/ontologies/2018/EAO
+# imports: http://delab.csd.auth.gr/ontologies/2018/SAO
+# prefix: EAO
+
+@prefix : <http://delab.csd.auth.gr/ontologies/2018/EAO#> .
+@prefix EAO: <http://delab.csd.auth.gr/ontologies/2018/EAO#> .
+@prefix SAO: <http://delab.csd.auth.gr/ontologies/2018/SAO#> .
+@prefix arg: <http://spinrdf.org/arg#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix spin: <http://spinrdf.org/spin#> .
+@prefix spl: <http://spinrdf.org/spl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://delab.csd.auth.gr/ontologies/2018/EAO>
+  rdf:type owl:Ontology ;
+  owl:imports <http://delab.csd.auth.gr/ontologies/2018/SAO> ;
+  owl:versionInfo "Created with TopBraid Composer" ;
+.
+EAO:DependabilityConcept
+  rdf:type owl:Class ;
+  rdfs:comment """An DependabilityConcept is an object that uniqely identifies dependability impairments. 
+The object could be one of the following:
+- Fault 
+- Error
+- Failure
+
+A failure may originate from an error. When the failure occurs, the system/function enters a fault state.""" ;
+  rdfs:subClassOf owl:Thing ;
+.
+EAO:Environment
+  rdf:type owl:Class ;
+  rdfs:comment "The environment is the remainder of the universe that lies outside the boundaries of the system. Depending on the type of system, it may interact with the environment by exchanging mass, energy (including heat and work), linear momentum, angular momentum, electric charge, or other conserved properties. In some disciplines, such as information theory, information may also be exchanged. The environment is ignored in analysis of the system, except in regard to these interactions." ;
+  rdfs:subClassOf SAO:IdentifiedConcept ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+EAO:Error
+  rdf:type owl:Class ;
+  rdfs:comment """Error is a discrepancy between a computed, observed, or measured value or condition and the true, specified, or theoretically correct value or condition.
+
+An error is present when the performance of a function deviates from the target performance (i.e., the theoretically correct performance), but still satisfies the performance requirement. An error will often, but not always, develop into a failure.""" ;
+  rdfs:subClassOf EAO:DependabilityConcept ;
+  rdfs:subClassOf SAO:State ;
+.
+EAO:Failure
+  rdf:type owl:Class ;
+  rdfs:comment """Failure is the termination of the ability of a system to perform a required function. 
+
+A failure is always related to a required function. The function is often specified together with a performance requirement. A failure occurs when the function cannot be performed or has a performance that falls outside the performance requirement.
+
+A failure is an event/flow that occurs at a specific point in time.
+
+A failure may:
+- Develop gradually
+- Occur as a sudden event
+
+The failure may sometimes be revealed:
+- On demand (i.e., when the function is needed) (“hidden”)
+- During a functional test (also “hidden”)
+- By monitoring or diagnostics (“evident”)""" ;
+  rdfs:subClassOf EAO:DependabilityConcept ;
+  rdfs:subClassOf SAO:Flow ;
+.
+EAO:Fault
+  rdf:type owl:Class ;
+  rdfs:comment """Fault is the state of a system characterized by inability to perform a required function
+
+While a failure is an event that occurs at a specific point in time, a fault is a state that will last for a shorter or longer period.
+
+When a failure occurs, the item enters the failed state. A failure may occur:
+- While running
+- While in standby
+- Due to demand""" ;
+  rdfs:subClassOf EAO:DependabilityConcept ;
+  rdfs:subClassOf SAO:State ;
+.
+EAO:activates
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Fault ;
+  rdfs:range EAO:Error ;
+.
+EAO:causes
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Error ;
+  rdfs:range EAO:Failure ;
+.
+EAO:dependsOn_rule2
+  rdf:type sh:SPARQLRule ;
+  sh:construct """PREFIX EAO:<http://delab.csd.auth.gr/ontologies/2018/EAO#>
+PREFIX SAO:<http://delab.csd.auth.gr/ontologies/2018/SAO#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+CONSTRUCT {
+    ?val SAO:dependsOn ?this .
+}
+WHERE {
+    ?this ?pr ?val .
+    FILTER (?pr IN (EAO:influences, EAO:regulates, EAO:impacts, EAO:exposes)) .
+    FILTER (?this != ?val) .
+    FILTER NOT EXISTS {
+        ?this a owl:Class .
+    } .
+    FILTER NOT EXISTS {
+        ?val a owl:Class .
+    } .
+}""" ;
+  sh:prefixes <http://delab.csd.auth.gr/ontologies/2018/EAO> ;
+  sh:prefixes <http://delab.csd.auth.gr/ontologies/2018/SAO> ;
+  sh:prefixes <http://www.w3.org/2002/07/owl> ;
+.
+EAO:exposes
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Environment ;
+  rdfs:range SAO:Flow ;
+.
+EAO:hasError
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:Function ;
+  rdfs:range EAO:Error ;
+.
+EAO:impacts
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Environment ;
+  rdfs:range SAO:State ;
+.
+EAO:impactsTo
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Environment ;
+  rdfs:range SAO:StateValue ;
+.
+EAO:regulates
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Environment ;
+  rdfs:range SAO:Item ;
+.
+EAO:regulatesTo
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain EAO:Environment ;
+  rdfs:range SAO:StateValue ;
+.
+SAO:Connection
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Flow
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Function
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Interface
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:Item
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:State
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:StateSet
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateValue ;
+  owl:disjointWith SAO:System ;
+.
+SAO:StateValue
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:System ;
+.
+SAO:System
+  owl:disjointWith EAO:Environment ;
+  owl:disjointWith SAO:Connection ;
+  owl:disjointWith SAO:Flow ;
+  owl:disjointWith SAO:Function ;
+  owl:disjointWith SAO:Interface ;
+  owl:disjointWith SAO:Item ;
+  owl:disjointWith SAO:State ;
+  owl:disjointWith SAO:StateSet ;
+  owl:disjointWith SAO:StateValue ;
+.
+SAO:hasFault
+  rdf:type owl:ObjectProperty ;
+  rdfs:domain SAO:System ;
+  rdfs:range EAO:Fault ;
+  rdfs:subPropertyOf SAO:hasState ;
+.
